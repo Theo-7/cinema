@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>main</title>
+    <link href="/index/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+
+      .carousel {
+        margin-bottom: 60px;
+      }
+      /* Center align the text within the three columns below the carousel */
+      .marketing .col-lg-3 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .marketing h2 {
+        font-weight: normal;
+      }
+      .marketing .col-lg-3 p {
+       /* margin-right: 10px;
+        margin-left: 10px;*/
+      }
+      /*footer {
+        margin-top: 40px;
+      }*/
+      .featurette-divider {
+        margin: 80px 0; /* Space out the Bootstrap <hr> more */
+      }
+    </style>
+
+  </head>
+  <body class="container">
+   {include file="/index/header" /}
+
+
+    <div id="myCarousel" class="carousel slide">
+       <!-- 轮播（Carousel）指标 -->
+       <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+       </ol>  
+       <!-- 轮播（Carousel）项目 -->
+       <div class="carousel-inner">
+          <div class="item active foo">
+             <img src="/index/img/a.jpg" alt="First slide" width="800px">
+          </div>
+          <div class="item foo">
+             <img src="/index/img/b.jpg" alt="Second slide">
+          </div>
+          <div class="item foo">
+             <img src="/index/img/c.jpg" alt="Third slide">
+          </div>
+       </div>
+       <!-- 轮播（Carousel）导航 -->
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+    <div class="marketing">
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <?php for($i=0;$i<4;$i++){ ?>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
+          <img class="img-rounded" src="/index/img/s1.jpg" alt="pic pic">
+          <h2>Heading</h2>
+          <p><a class="btn btn-default" href="/index/movie" role="button">View details »</a></p>
+        </div>
+        <?php } ?>
+      </div><!-- /.row -->
+      <div class="row">
+          <?php for($i=0;$i<4;$i++){ ?>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
+            <img class="img-rounded" src="/index/img/s1.jpg" alt="pic pic">
+            <h2>Heading</h2>
+            <p><a class="btn btn-default" href="/index/movie" role="button">View details »</a></p>
+          </div>
+          <?php } ?>
+        </div>  
+      <!-- /.row -->
+
+    <hr class="featurette-divider">
+    <!-- FOOTER -->
+    <footer>
+      <p class="pull-right"><a href="">Back to top</a></p>
+      <p>© 2016 DingPiaoTong</p>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/index/js/jquery-1.12.3.min.js"></script>
+    <script src="/index/js/bootstrap.min.js"></script>
+    <script type="text/javascript" >
+       $(".foo img").addClass("carousel-inner img-responsive img-rounded"); 
+    </script>
+  </body>
+</html>

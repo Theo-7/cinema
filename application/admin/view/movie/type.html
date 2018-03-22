@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 数据表格</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/admin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>电影类型（双击可修改）</h5>
+                        <div class="ibox-tools">
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                                新增类型
+                            </button>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>类型名</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="data" id="vo" empty="暂时没有数据"}
+                                    <tr class="gradeX">
+                                        <th>{$vo.id}</th>
+                                        <td>{$vo.name}
+                                        </td>
+                                        <th>
+                                            <a class="btn btn-sm btn-primary m-t-n-xs" href="/admin/movice/delType?id={$vo.id}">
+                                                <strong>删除</strong>
+                                                </button>
+                                        </th>
+                                    </tr>
+                                {/volist}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>类型名</th>
+                                    <th>操作</th>
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">添加分类</h4>
+                        </div><small class="font-bold">
+                    <div class="modal-body" style="text-align:center">
+                        <input id="tname" type="text" placeholder="输入分类名" />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <button type="button" onclick="saveType()" class="btn btn-primary">保存</button>
+                    </div>
+                </small></div><small class="font-bold">
+            </small></div><small class="font-bold">
+        </small></div>
+    <!-- 全局js -->
+    <script src="/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/admin/js/content.js?v=1.0.0"></script>
+
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function () {
+            $('.dataTables-example').dataTable();
+
+            /* Init DataTables */
+            var oTable = $('#editable').dataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable('/admin/movice/changeType', {
+                "callback": function (sValue, y) {
+                    var aPos = oTable.fnGetPosition(this);
+                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                },
+                "submitdata": function (value, settings) {
+                    return {
+                        "row_id": $(this).prev().text(),
+                        "column": oTable.fnGetPosition(this)[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            });
+
+
+        });
+    </script>
+    <script>
+        function saveType(){
+            var name = $("#tname").val();
+            if(name!=""&&name!=null&&name!=undefined){
+                $.post("/admin/movice/newType",{name:name},function(res){
+                    if(res.code==1){
+                        window.location.reload();
+                    }
+                })
+            }
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>
