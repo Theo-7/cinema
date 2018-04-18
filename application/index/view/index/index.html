@@ -29,6 +29,7 @@
         margin-top: 40px;
       }*/
       .featurette-divider {
+        
         margin: 80px 0; /* Space out the Bootstrap <hr> more */
       }
     </style>
@@ -71,30 +72,27 @@
     <div class="marketing">
       <!-- Three columns of text below the carousel -->
       <div class="row">
-        <?php for($i=0;$i<4;$i++){ ?>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-          <img class="img-rounded" src="/index/img/s1.jpg" alt="pic pic">
-          <h2>Heading</h2>
-          <p><a class="btn btn-default" href="/index/movie" role="button">View details »</a></p>
-        </div>
-        <?php } ?>
-      </div><!-- /.row -->
-      <div class="row">
-          <?php for($i=0;$i<4;$i++){ ?>
-          <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
-            <img class="img-rounded" src="/index/img/s1.jpg" alt="pic pic">
-            <h2>Heading</h2>
-            <p><a class="btn btn-default" href="/index/movie" role="button">View details »</a></p>
+          <div class="col-lg-4 col-md-8 col-sm-12">
+            <p style="font-size:32px;color:crimson"　class="text-danger">正在热映</p>  
           </div>
-          <?php } ?>
-        </div>  
+      </div>
+      <div class="row">
+        
+        {volist name="data" id="vo"}
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 foo">
+          <img class="img-rounded" src="{$vo.cover}" alt="{$vo.name}">
+          <h2>{$vo.name}</h2>
+          <p><a class="btn btn-default" href="/index/movie?id={$vo.id}" role="button">购票 »</a></p>
+        </div>
+        {/volist}
+      </div><!-- /.row -->
       <!-- /.row -->
 
     <hr class="featurette-divider">
     <!-- FOOTER -->
     <footer>
       <p class="pull-right"><a href="">Back to top</a></p>
-      <p>© 2016 DingPiaoTong</p>
+      <p>© 2018 </p>
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -103,5 +101,6 @@
     <script type="text/javascript" >
        $(".foo img").addClass("carousel-inner img-responsive img-rounded"); 
     </script>
+    
   </body>
 </html>

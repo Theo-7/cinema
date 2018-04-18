@@ -50,24 +50,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {volist name="data" id="vo"}
                                 <tr class="gradeX">
-                                    <td>Trident</td>
-                                    <td>Internet Explorer 4.0
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.name}
                                     </td>
-                                    <td>Win 95+</td>
-                                    <td class="center">4</td>
-                                    <td class="center">X</td>
-                                    <td class="center">X</td>
+                                    <td>{$vo.roleid}</td>
+                                    <td class="center">{$vo.lastloginip}</td>
+                                    <td class="center">{$vo.lastlogintime|date='Y-m-d H:i:s',###}</td>
+                                    <td class="center"></td>
                                 </tr>
-                                <tr class="gradeC">
-                                    <td>Trident</td>
-                                    <td>Internet Explorer 5.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5</td>
-                                    <td class="center">C</td>
-                                    <td class="center">C</td>
-                                </tr>
+                                {/volist}
+                               
                             </tbody>
                            
                         </table>
@@ -100,37 +94,10 @@
             $('.dataTables-example').dataTable();
 
             /* Init DataTables */
-            var oTable = $('#editable').dataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable('../example_ajax.php', {
-                "callback": function (sValue, y) {
-                    var aPos = oTable.fnGetPosition(this);
-                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-                },
-                "submitdata": function (value, settings) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition(this)[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            });
 
 
         });
 
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData([
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row"]);
-
-        }
     </script>
 
     

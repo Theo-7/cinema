@@ -48,48 +48,22 @@
 
   </head>
   <body class="container">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="./index.html">DPT</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Main Page <span class="sr-only">(current)</span></a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="./register.html">Register</a></li>
-            <li class="active"><a href="./login.html">Login</a></li>
-          </ul>
-
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+   {include file="/index/header"}
 
     <div class="container">
-
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please Login</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+      
+      <form action='/index/login/login' method="POST"　  class="form-signin">
+        <h2 class="form-signin-heading" style="text-align:center">欢　迎！</h2>
+        <label for="phone" class="sr-only">Email address</label>
+        <input type="phone" id="phone" name="phone" class="form-control" placeholder="电话号码" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required="">
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
       </form>
 
     </div> <!-- /container -->
@@ -102,5 +76,14 @@
     <script type="text/javascript" >
        $(".foo img").addClass("carousel-inner img-responsive img-rounded"); 
     </script>
+    {neq name="errorCode" value=" "}
+      <script>
+        $(function(){
+          var code = {$errorCode};
+          alert("账号或密码错误");
+          
+        })
+      </script>
+    {/neq}
   </body>
 </html>

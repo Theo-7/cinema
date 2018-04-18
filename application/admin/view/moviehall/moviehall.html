@@ -59,6 +59,9 @@
                                         {$vo.seat}
                                     </td>
                                     <td>
+                                            <a href="/admin/moviehall/platter?id={$vo.id}" class="btn btn-sm btn-success m-t-n-xs">
+                                                    <strong>排片</strong>
+                                                </a>
                                         <a onclick="getHall(this)" class="btn btn-sm btn-success m-t-n-xs" data-toggle="modal" data-target="#myModal6" hall-id={$vo.id}>
                                             <strong>修改</strong>
                                         </a>
@@ -213,25 +216,25 @@
          $(document).ready(function () {
             $('.dataTables-example').dataTable();
 
-            /* Init DataTables */
-            var oTable = $('#editable').dataTable();
+            // /* Init DataTables */
+            // var oTable = $('#editable').dataTable();
 
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable('../example_ajax.php', {
-                "callback": function (sValue, y) {
-                    var aPos = oTable.fnGetPosition(this);
-                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-                },
-                "submitdata": function (value, settings) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition(this)[2]
-                    };
-                },
+            // /* Apply the jEditable handlers to the table */
+            // oTable.$('td').editable('../example_ajax.php', {
+            //     "callback": function (sValue, y) {
+            //         var aPos = oTable.fnGetPosition(this);
+            //         oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+            //     },
+            //     "submitdata": function (value, settings) {
+            //         return {
+            //             "row_id": this.parentNode.getAttribute('id'),
+            //             "column": oTable.fnGetPosition(this)[2]
+            //         };
+            //     },
 
-                "width": "90%",
-                "height": "100%"
-            });
+            //     "width": "90%",
+            //     "height": "100%"
+            // });
 
 
         });

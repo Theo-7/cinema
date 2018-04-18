@@ -60,8 +60,16 @@
                                     <td class="center">{$vo.type}</td>
                                     <td class="center">{$vo.time}</td>
                                     <td class="center">{$vo.version}</td>
-                                    <td class="center">{$vo.addtime}</td>
-                                    <td></td>
+                                    <td class="center">{$vo.addtime|date='Y-m-d H:i:s',###}</td>
+                                    <td>
+                                        {eq name="vo.isshow" value="0"}
+                                        <a onclick="sub({$vo.id})" class="btn btn-sm btn-success m-t-n-xs">上映</a>
+                                        {else/}
+                                        <a onclick="sub({$vo.id})" class="btn btn-sm btn-danger m-t-n-xs">下映</a>
+
+                                        {/eq}
+                                        <a href="/admin/movie/showEdit?id={$vo.id}" class="btn btn-sm btn-info m-t-n-xs">修改</a>
+                                    </td>
                                 </tr>
                                 {/volist}
                                
@@ -114,6 +122,19 @@
 
 
     });
+    //
+    function sub(id){
+        $.ajax({
+            type:"post",
+            url:"/admin/movie/isshow",
+            data:{id:id},
+            success:function(res){
+                if(res.code==1){
+                    window.location.reload();
+                }
+            }
+        });
+    }
 </script>
 
     

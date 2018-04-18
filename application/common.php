@@ -10,3 +10,17 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+function post($url,$data){
+    $init = curl_init();
+    $opt = array(
+        CURLOPT_URL => $url,
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_HEADER => 0,
+        CURLOPT_POSTFIELDS =>$data
+    );
+    curl_setopt_array($init,$opt);
+    $ret = curl_exec($init);
+    curl_close($init);
+    return $ret;
+}

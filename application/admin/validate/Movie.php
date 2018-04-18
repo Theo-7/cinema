@@ -6,7 +6,6 @@ class Movie extends Validate{
         "name|电影名" => "require|max:15｜unique:movie",
         "cover|电影封面" => "require|max:150",
         "description|电影描述" => "require|max:1200",
-        "pictures|电影图集" =>"require|max:250",
         "area|电影地区" => "require|max:50",
         "duration|时长" => "require|max:20",
         "type|电影类型" => "require|max:12",

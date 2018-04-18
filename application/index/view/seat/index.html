@@ -1,125 +1,245 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>seat</title>
-    <link href="/index/css/bootstrap.min.css" rel="stylesheet">
 
-    <style type="text/css">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>seat</title>
+  <link href="/index/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/index/tools/jqseat/css/jq22.css" />
 
-      .seat_holder {
-        margin-top: 30px;
-      }
-      .select_seat_btn {
-        margin-top: 30px;
-      }
-    </style>
+  <style type="text/css">
+    .seat_holder {
+      margin-top: 30px;
+    }
 
-  </head>
-  <body class="container">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/index/index.html">DPT</a>
-        </div>
+    .select_seat_btn {
+      margin-top: 30px;
+    }
+  </style>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="/index/index.html">Main Page</a></li>
-          </ul>
+</head>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/index/register.html">Register</a></li>
-            <li><a href="/index/login.html">Login</a></li>
-          </ul>
+<body class="container">
+  {include file="/index/header"}
 
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+  <!-- <div class="row" >
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 foo">
+      <img style="margin-bottom:10px" width="100%" src="{$data.moviecover}">
+    </div>
+    <div>
+      <p style="font-size:16px;">
+        <br> 影院：影达电影院
+        <br> 语言/版本：{$data.version}
+        <br> 场次：{$data.start|date="Y-m-d H:i",###} {$data.hallname}
+        <br> 预计{$data.end|date="H:i",###}散场
+      </p>
+    </div>
+  </div> -->
 
+  <div class="seat_holder">
     <div class="row">
-      <div class="col-lg-2 col-md-0 col-sm-0 col-xs-0"></div>
-      <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 foo">
-        <img src="/index/img/s1.jpg">
-      </div>
-      <div>
-        <p>
-          <br>
-          影院：SFC上影-永华店<br>
-          语言/版本：英语 3D<br>
-          场次：2016-05-19 星期四 23:40 11号厅<br>
-          预计02:06散场
-        </p>
-      </div>
-    </div>
+        <div id="legend"></div>
+        <div class="demo clearfix">
 
-    <div class="seat_holder">
-      <div class="row">
-        <div class="col-lg-3 col-md-0 col-sm-0 col-xs-0"></div>
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-          <div class="seat_row">
-            <a href="javascritp:void(0);"><img src="/index/img/unsee.png" width="23" height="19"></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="/index/img/empty_seat.gif"></a>
-            <a href="javascritp:void(0);"><img src="/index/img/red_seat.gif"></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="/index/img/empty_seat.gif" width="23" height="19"></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="/index/img/empty_seat.gif"></a>
-          </div>
-          <div class="seat_row">
-            <a href="javascritp:void(0);" class="empty_seat"><img src="/index/img/empty_seat.gif"></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="/index/img/empty_seat.gif"></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="/index/img/empty_seat.gif"></a>
-            <a href="javascritp:void(0);"><img src="/index/img/red_seat.gif"></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="/index/img/empty_seat.gif" width="23" height="19"></a>
-            <a href="javascritp:void(0);" class="empty_seat"><img src="/index/img/empty_seat.gif"></a>
-          </div>
+            <!---左边座位列表---->
+
+            <div id="seat_area">
+
+                <div class="front">屏幕</div>					
+
+            </div>
+
+            <!---右边选座信息------>
+
+            <div class="booking_area">
+
+                <p>电影：<span>{$data.moviename}</span></p>
+                <img width="115px" height="158px" src="{$data.moviecover}" />
+
+                <p>时间：<span>{$data.start|date="Y-m-d H:i",###}</span></p>
+
+                <p>座位：</p>
+
+                <ul id="seats_chose"></ul>
+
+                <p>票数：<span id="tickects_num">0</span></p>
+
+                <p>总价：<b>￥<span id="total_price">0</span></b></p>
+
+
+
+                <button id="sub" type="button" class="btn">确认选座</button>
+
+
+
+                
+
+            </div>
+
         </div>
-      </div>
-    </div>
 
-    <div class="row select_seat_btn">
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <a class="btn btn-primary btn-md" href="/index/order" role="button">确认座位</a>
-      </div>
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/index/js/jquery-1.12.3.min.js"></script>
-    <script src="/index/js/bootstrap.min.js"></script>
-    <script type="text/javascript" >
-      $(".foo img").addClass("carousel-inner img-responsive img-rounded");
-      $(".empty_seat").hover(function(){
-        $(this).children("img").attr("src", "/index/img/green_seat.gif");
-      }, function(){
-        if($(this).attr("state") != "selected") {
-          $(this).children("img").attr("src", "/index/img/empty_seat.gif");
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="/index/js/jquery-1.12.3.min.js"></script>
+  <script src="/index/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/index/tools/jqseat/jquery.seat-charts.min.js"></script>
+  <script>
+    var price = {$data.price}; //电影票价
+
+    $(document).ready(function () {
+
+      var $cart = $('#seats_chose'), //座位区
+
+        $tickects_num = $('#tickects_num'), //票数
+
+        $total_price = $('#total_price'); //票价总额
+
+
+
+      var sc = $('#seat_area').seatCharts({
+
+        map: {$data.seat},
+
+        naming: { //设置行列等信息
+
+          top: false, //不显示顶部横坐标（行） 
+
+          getLabel: function (character, row, column) { //返回座位信息 
+
+            return column;
+
+          }
+
+        },
+
+        legend: { //定义图例
+
+          node: $('#legend'),
+
+          items: [
+
+            ['c', 'available', '可选座'],
+
+            ['c', 'unavailable', '已售出']
+
+          ]
+
+        },
+
+        click: function () {
+
+          if (this.status() == 'available') { //若为可选座状态，添加座位
+
+            $('<li>' + (this.settings.row + 1) + '排' + this.settings.label + '座</li>')
+
+              .attr('id', 'cart-item-' + this.settings.id)
+
+              .data('seatId', this.settings.id)
+
+              .appendTo($cart);
+
+
+
+            $tickects_num.text(sc.find('selected').length + 1); //统计选票数量
+
+            $total_price.text(getTotalPrice(sc) + price); //计算票价总金额
+
+
+
+            return 'selected';
+
+          } else if (this.status() == 'selected') { //若为选中状态
+
+
+
+            $tickects_num.text(sc.find('selected').length - 1); //更新票数量
+
+            $total_price.text(getTotalPrice(sc) - price); //更新票价总金额
+
+            $('#cart-item-' + this.settings.id).remove(); //删除已预订座位
+
+
+
+            return 'available';
+
+          } else if (this.status() == 'unavailable') { //若为已售出状态
+
+            return 'unavailable';
+
+          } else {
+
+            return this.style();
+
+          }
+
         }
+
       });
-      $(".empty_seat").click(function(){
-        if ($(this).attr("state") == "selected") {
-          $(this).attr("state", "empty");
-          $(this).children("img").attr("src", "/index/img/empty_seat.gif");
-        } else {
-          $(this).attr("state", "selected");
-          $(this).children("img").attr("src", "/index/img/green_seat.gif");
+
+      //设置已售出的座位
+      var seat = {$seat};
+      sc.get(seat).status('unavailable');
+
+
+
+    });
+
+
+
+    function getTotalPrice(sc) { //计算票价总额
+
+      var total = 0;
+
+      sc.find('selected').each(function () {
+
+        total += price;
+
+      });
+
+      return total;
+
+    }
+  </script>
+  <script>
+    $(function(){
+      $("#sub").on("click",function(){
+        var seat = new Array();
+        var pid = {$data.pid};
+        var num = $("#tickects_num").text();
+        var price = $("#total_price").text(); 
+        $("[aria-checked='true']").each(function(){
+          seat.push($(this).attr("id"));
+        });
+        if(seat.length==0){
+          alert("未选座位");
+          return false;
         }
+        var json = {seat:seat,pid:pid,num:num,money:price};
+        $.ajax({
+          url:"/index/seat/setorder",
+          data:json,
+          type:"POST",
+          success:function(res){
+            if(res.code == "undefined"||res.code == " "){
+              location.href="/index/login/index";
+            }
+            if(res.code==1){
+              location.href="/index/order?id="+res.data['num'];
+            }else{
+              location.href="/index/login/index";
+            }
+
+          }
+        });
         
-      });
-      $("selected_seat").click(function(){
-        $(this).removeClass("selected_seat");
-        $(this).addClass("empty_seat");
-        $(this).children("img").attr("src", "/index/img/empty_seat.gif");
-      });
-    </script>
-  </body>
-</html>
+      })
+    })
+  </script>
+</body>
+
+</html>   

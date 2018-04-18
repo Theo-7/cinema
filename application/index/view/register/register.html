@@ -1,101 +1,221 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>register</title>
-    <link href="/index/css/bootstrap.min.css" rel="stylesheet">
 
-    <style type="text/css">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>register</title>
+  <link href="/index/css/bootstrap.min.css" rel="stylesheet">
 
-      .form-signin {
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;
-      }
-      .form-signin .form-signin-heading,
-      .form-signin .checkbox {
-        margin-bottom: 10px;
-      }
-      .form-signin .checkbox {
-        font-weight: normal;
-      }
-      .form-signin .form-control {
-        position: relative;
-        height: auto;
-        -webkit-box-sizing: border-box;
-           -moz-box-sizing: border-box;
-                box-sizing: border-box;
-        padding: 10px;
-        font-size: 16px;
-      }
-      .form-signin .form-control:focus {
-        z-index: 2;
-      }
-      .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-      .form-signin input[type="password"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-      }
-    </style>
+  <style type="text/css">
+    .form-signin {
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
 
-  </head>
-  <body class="container">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="./index.html">DPT</a>
+    .form-signin .form-signin-heading,
+    .form-signin .checkbox {
+      margin-bottom: 10px;
+    }
+
+    .form-signin .checkbox {
+      font-weight: normal;
+    }
+
+    .form-signin .form-control {
+      position: relative;
+      height: auto;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .form-signin .form-control:focus {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    input.error {
+      border: 1px solid red;
+    }
+
+    label.error {
+      background: url("./demo/images/unchecked.gif") no-repeat 0px 0px;
+
+      padding-left: 16px;
+
+      padding-bottom: 2px;
+
+      font-weight: bold;
+
+      color: #EA5200;
+    }
+  </style>
+
+</head>
+
+<body class="container">
+  {include file="/index/header" /}
+  <div class="container">
+    {neq name="error" value=" " }
+      <script>alert("{$error}")</script>
+    {/neq}
+    <form id="commentForm" class="form-horizontal" action="/index/register/register" method="post">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">手机号：</label>
+
+        <div class="col-sm-6">
+          <input id="phone" name="phone" type="text" placeholder="手机号" class="form-control">
+          <button type="button" id="sendmsg" style="margin-top:10px" class="btn btn-w-m btn-info" 　>免费获取手机验证码</button>
         </div>
+        <div class="col-sm-2" 　style="padding:0">
+          <span id="msg" style='color:red'></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">短信认证码：</label>
+        <div class="col-sm-6">
+          <input id="telcode" name="telcode" type="text" placeholder="短信认证码" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">密码：</label>
+        <div class="col-sm-6">
+          <input name="password" id="password" type="password" placeholder="密码" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">确认密码：</label>
+        <div class="col-sm-6">
+          <input name="password_confirm" id="password_confirm" type="password" placeholder="确认密码" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+          <button class="btn btn-sm btn-info" type="submit">注　册</button>
+        </div>
+      </div>
+    </form>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="./index.html">Main Page</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="./register.html">Register</a></li>
-            <li><a href="./login.html">Login</a></li>
-          </ul>
-
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-
-    <div class="container">
-
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please register</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-      </form>
-
-    </div> <!-- /container -->
-    
+  </div>
+  <!-- /container -->
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/index/js/jquery-1.12.3.min.js"></script>
-    <script src="/index/js/bootstrap.min.js"></script>
-    <script type="text/javascript" >
-       $(".foo img").addClass("carousel-inner img-responsive img-rounded"); 
-    </script>
-  </body>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="/index/js/jquery-1.12.3.min.js"></script>
+  <script src="/index/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(".foo img").addClass("carousel-inner img-responsive img-rounded");
+  </script>
+  <script>
+    $(
+      function () {
+        $("#sendmsg").on("click", function () {
+          var phoneEle = $("[name='phone']");
+          var phone = phoneEle.val();
+
+          if (phone != " " && phone != undefined) {
+            var prep = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if (prep.test(phone)) {
+              $("#msg").html(" ");
+              $.ajax({
+                url: "/index/register/phoneVerify",
+                type: "get",
+                data: {
+                  phone: phone
+                },
+                dataType: "json",
+                success: function (res) {
+                  if (res.status === true) {
+                  } else {
+                    console.log(typeof (res));
+                  }
+                }
+              });
+              setTime();
+            } else {
+              phoneEle.focus();
+              $("#msg").html("请输入正确的手机号码");
+            }
+          }
+        })
+      }
+    )
+    //按钮倒计时
+    function setTime() {
+      var btn = $("#sendmsg");
+      var time = 59;
+      btn.prop("disabled", "disabled");
+      btn.html(60 + "s后可再次免费发送验证码");
+      var intv = setInterval(function () {
+        btn.html(time-- + "s后可再次免费发送验证码");
+        if (time === 0) {
+          btn.removeProp("disabled");
+          btn.html("免费获取手机验证码");
+          clearInterval(intv);
+        }
+      }, 1000)
+    }
+  </script>
+  <!-- jQuery Validation plugin javascript-->
+  <script src="/admin/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/admin/js/plugins/validate/messages_zh.min.js"></script>
+
+  <script>
+    $().ready(function () {
+      // 在键盘按下并释放及提交后验证提交表单
+      $("#commentForm").validate({
+        rules: {
+          phone: "required",
+          telcode: {
+            required: true,
+            minlength: 4
+          },
+          password: {
+            required: true,
+            minlength: 5
+          },
+          password_confirm: {
+            required: true,
+            minlength: 5,
+            equalTo: "#password"
+          },
+
+        },
+        messages: {
+          phone: "请输入手机号码",
+          telcode: "请输手机验证码",
+          password: {
+            required: "请输入密码",
+            minlength: "密码长度不能小于 5 个字母"
+          },
+          confirm_password: {
+            required: "请输入密码",
+            minlength: "密码长度不能小于 5 个字母",
+            equalTo: "两次密码输入不一致"
+          },
+        }
+      })
+    });
+  </script>
+
+</body>
+
 </html>
