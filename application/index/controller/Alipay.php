@@ -32,12 +32,13 @@ class Alipay extends Common
             'gatewayUrl' => "https://openapi.alipaydev.com/gateway.do",
 
             //支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
-            'alipay_public_key' => "/LZCQi0n+/2wTeJFmyDXLZI/8+NkSJaQTMPqPW4qO3Krl/P9v4UKsQUhHLVqfk5X1vCdhQWrn5ybwuGIhcK130RN9Mx8xjtYmUuQn+WL/Ytlbxg1pkV/J4oho8Mg/6Ka2mT0sJAaE4+CGQ9A73aywk1SZQf0ewaQgTQtfJr25UE/jWpOav+6jYqyT5DB3tYVAE48PJ1yLaQPj4nZNpbHy6zFzjpTpQX6Wvjj0FkJM3tdRihXbWQXFGJNxJ1wIDAQAB",
+            'alipay_public_key' => "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwU5P8LXleATk2iAbaY4ZY08tEMPNitO6UwNhNS2ZrT/LZCQi0n+SSFTAOahKyViHIcNLQfah8GlOykApjPQaTR0JFDeTGUAJR0y/2wTeJFmyDXLZI/8+NkSJaQTMPqPW4qO3Krl/P9v4UKsQUhHLVqfk5X1vCdhQWrn5ybwuGIhcK130RN9Mx8xjtYmUuQn+WL/Ytlbxg1pkV/J4oho8Mg/6Ka2mT0sJAaE4+CGQ9A73aywk1SZQf0ewaQgTQtfJr25UE/jWpOav+6jYqyT5DB3tYVAE48PJ1yLaQPj4nZNpbHy6zFzjpTpQX6Wvjj0FkJM3tdRihXbWQXFGJNxJ1wIDAQAB",
         );
     }
     public function pay()
     {
 
+        
         //商户订单号，商户网站订单系统中唯一订单号，必填
         $out_trade_no = trim($_POST['WIDout_trade_no']);
 
