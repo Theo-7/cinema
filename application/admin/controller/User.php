@@ -29,6 +29,8 @@ class User extends Common
                     $post["password"] = password_hash($post["password"], PASSWORD_DEFAULT);
                     $post["logintime"] = time();
                     $post['loginip'] = $_SERVER['REMOTE_ADDR'];
+                    $post['lastlogintime'] = $post["logintime"];
+                    $post['lastloginip'] = $post['loginip'];
                     $result = Db::name("admin")->insert($post);
                     if ($result) {
                         $this->success("添加成功", "/admin/user/index", 2);
