@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 2018-04-18 19:55:50
+-- Generation Time: 2018-04-23 19:32:21
 -- 服务器版本： 5.5.59-0ubuntu0.14.04.1
 -- PHP Version: 5.6.35-1+ubuntu14.04.1+deb.sury.org+1
 
@@ -44,7 +44,7 @@ CREATE TABLE `cinema_admin` (
 --
 
 INSERT INTO `cinema_admin` (`id`, `name`, `roleid`, `lastloginip`, `lastlogintime`, `password`, `loginip`, `realname`, `email`, `logintime`) VALUES
-(1, 'admin', 1, '127.0.0.1', '1524034235', '$2y$10$tGUgvvMqColEuXmTqlfZgOx7VbNffFk.g9t2sqpSFEob8BaNAXPky', '127.0.0.1', 'ht', '', '1524051105');
+(1, 'admin', 1, '127.0.0.1', '1524475808', '$2y$10$tGUgvvMqColEuXmTqlfZgOx7VbNffFk.g9t2sqpSFEob8BaNAXPky', '127.0.0.1', 'ht', '', '1524480707');
 
 -- --------------------------------------------------------
 
@@ -78,6 +78,28 @@ CREATE TABLE `cinema_cinema` (
   `name` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `seat` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cinema_comment`
+--
+
+CREATE TABLE `cinema_comment` (
+  `id` int(255) NOT NULL,
+  `movieid` int(255) NOT NULL,
+  `userid` int(255) NOT NULL,
+  `comment` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+  `score` tinyint(10) NOT NULL,
+  `time` varchar(15) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `cinema_comment`
+--
+
+INSERT INTO `cinema_comment` (`id`, `movieid`, `userid`, `comment`, `score`, `time`) VALUES
+(2, 1, 1, '很好看', 5, '1524472302');
 
 -- --------------------------------------------------------
 
@@ -269,7 +291,7 @@ CREATE TABLE `cinema_user` (
 --
 
 INSERT INTO `cinema_user` (`id`, `name`, `password`, `phone`, `avater`, `registertime`, `logintime`) VALUES
-(1, '', '$2y$10$ESiQa5jG2gcICMvUdrr3quL/PnxHLN4B/L28LIxN8zSNBeO0Al.8i', '15818348574', 'http://p0.meituan.net/movie/7dd82a16316ab32c8359debdb04396ef2897.png', '2018-04-08 17:12:35', '2018-04-17 09:36:22');
+(1, '', '$2y$10$ESiQa5jG2gcICMvUdrr3quL/PnxHLN4B/L28LIxN8zSNBeO0Al.8i', '15818348574', 'http://p0.meituan.net/movie/7dd82a16316ab32c8359debdb04396ef2897.png', '2018-04-08 17:12:35', '2018-04-23 16:11:03');
 
 --
 -- Indexes for dumped tables
@@ -291,6 +313,12 @@ ALTER TABLE `cinema_award`
 -- Indexes for table `cinema_cinema`
 --
 ALTER TABLE `cinema_cinema`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cinema_comment`
+--
+ALTER TABLE `cinema_comment`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -361,6 +389,11 @@ ALTER TABLE `cinema_award`
 --
 ALTER TABLE `cinema_cinema`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+--
+-- 使用表AUTO_INCREMENT `cinema_comment`
+--
+ALTER TABLE `cinema_comment`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- 使用表AUTO_INCREMENT `cinema_movie`
 --
