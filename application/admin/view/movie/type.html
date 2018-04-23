@@ -142,7 +142,7 @@
         function saveType(){
             var name = $("#tname").val();
             if(name!=""&&name!=null&&name!=undefined){
-                $.post("/admin/movice/newType",{name:name},function(res){
+                $.post("/admin/movie/newType",{name:name},function(res){
                     if(res.code==1){
                         window.location.reload();
                     }
