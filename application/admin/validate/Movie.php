@@ -1,6 +1,6 @@
 <?php
 namespace app\admin\validate;
-use think1\Validate;
+use think\Validate;
 class Movie extends Validate{
     protected $rule = [
         "name|电影名" => "require|max:15｜unique:movie",
