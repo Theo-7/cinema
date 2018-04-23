@@ -9,6 +9,12 @@
   <title>movie</title>
   <link href="/index/css/bootstrap.min.css" rel="stylesheet">
   <link href="/admin/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/index/tools/raty/demo/css/application.css">
+  <script src="/index/js/jquery-1.12.3.min.js"></script>
+  <script type="text/javascript" src="/index/tools/raty/lib/jquery.raty.min.js"></script>
+
+
+
 
 
   <style type="text/css">
@@ -29,7 +35,6 @@
       margin-top: 40px;
       margin-bottom: 0px;
     }
-    
   </style>
 
 </head>
@@ -97,39 +102,42 @@
           {/volist}
         </div>
         <div role="tabpanel" class="tab-pane" id="messages">
-            
-                  {volist name="data.award" id="a"}
-                    <div class="row">
-                        <div class="col-sm-1"><img src="{$a.awardCover}" /> </div>
-                        
-                        <div style="height:50px;line-height: 50px" class="col-sm-4">{$a.awardName}</div>
-                       
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        {$a.award}
-                      </div>
-                    </div>
-                   {/volist}
-           
+
+          {volist name="data.award" id="a"}
+          <div class="row">
+            <div class="col-sm-1">
+              <img src="{$a.awardCover}" /> </div>
+
+            <div style="height:50px;line-height: 50px" class="col-sm-4">{$a.awardName}</div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              {$a.award}
+            </div>
+          </div>
+          {/volist}
+
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
-            <div class="lightBoxGallery">
-                {volist name="data.pictures" id="pic"}
-                <a href="{$pic}" title="图片" data-gallery=""><img src="{$pic}"></a>
-                {/volist}
-            </div>
-            <div id="blueimp-gallery" class="blueimp-gallery">
-                <div class="slides"></div>
-                <h3 class="title"></h3>
-                <a class="prev">‹</a>
-                <a class="next">›</a>
-                <a class="close">×</a>
-                <a class="play-pause"></a>
-                <ol class="indicator"></ol>
-            </div>
-          
-          
+          <div class="lightBoxGallery">
+            {volist name="data.pictures" id="pic"}
+            <a href="{$pic}" title="图片" data-gallery="">
+              <img src="{$pic}">
+            </a>
+            {/volist}
+          </div>
+          <div id="blueimp-gallery" class="blueimp-gallery">
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close">×</a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+          </div>
+
+
         </div>
       </div>
       <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
@@ -138,20 +146,64 @@
       </div>
     </div>
   </div>
+  <div>
+    <h2 class="tagg">评论</h2>
+    {volist name="cdata" id="c"}
+    <div class="row" style="margin:10px 0;font-size:20px;border: 1px solid #dedede">
+      <div class="col-sm-12">
+        <div class="col-sm-12">
+          用户：{eq name="c.name" value=""}
+                  {$c.phone|substr_replace=###,"****",3,4}
+                {/eq}
+        </div>
+        <div id="star{$c.id}" class="col-sm-4">
+          <script>
+            $("#star{$c.id}").raty({
+              width: "180px",
+              scoreName: "star",
+              readOnly: true, 
+              score: {$c.score},
 
+              half: true,
+
+              size: 24,
+
+              starHalf: '/index/tools/raty/demo/img/star-half-big.png',
+
+              starOff: '/index/tools/raty/demo/img/star-off-big.png',
+
+              starOn: '/index/tools/raty/demo/img/star-on-big.png'
+            });
+          </script>
+        </div>
+        <div class="col-sm-8">
+          {$c.time|date="m-d",###}
+        </div>
+        <div class="col-sm-12">
+          {$c.comment}
+        </div>
+      </div>
+    </div>
+    {/volist}
+    <div class="col-sm-12">
+        {$cdata->render()}
+    </div>
+  </div>
   <hr class="featurette-divider">
   <!-- FOOTER -->
   <footer>
-    <p class="pull-right"><a href="">Back to top</a></p>
+    <p class="pull-right">
+      <a href="">Back to top</a>
+    </p>
     <p>© 2018 </p>
   </footer>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="/index/js/jquery-1.12.3.min.js"></script>
   <script src="/index/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $(".foo img").addClass("carousel-inner img-responsive img-rounded");
   </script>
   <script src="/admin/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
 </body>
 
 </html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>movie</title>
+  <link href="/index/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/admin/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/index/tools/raty/demo/css/application.css">
+
+
+
+  <style type="text/css">
+    .poster {
+      width: 35%;
+    }
+
+    .floata {
+      float: left;
+    }
+
+    .floatb {
+      float: left;
+      clear: both;
+    }
+
+    .tagg {
+      margin-top: 40px;
+      margin-bottom: 0px;
+    }
+  </style>
+
+</head>
+
+<body class="container">
+  {include file="/index/header" /}
+
+  <div class="row">
+
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+      <img class="img-rounded" width=248 height=340 src="{$data.cover}" alt="{$data.name}">
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+      <h3>{$data.name}</h3>
+      <h5>Captain America: Civil War</h5>
+      <br>
+      <p>
+        上映日期：{$data.time} {eq name="data.isshow" value="1"} [上映中]{else/} [未上映]{/eq}
+        <br> 片长/语言：{$data.duration}分钟/英语
+        <br> 类 型： {volist name="data.type" id="vo"}{$vo}&nbsp;{/volist}
+      </p>
+
+    </div>
+  </div>
+  <!-- /container -->
+
+  <div>
+    <h2 class="tagg">评价</h2>
+    <div class="row">
+      <form id="form" type="post" action="/index/comment/add">
+        <div id="star" class="col-sm-12">
+
+        </div>
+
+        <div class="col-sm-12 col-xs-12" style="margin-top:20px">
+          <input name="movieid" value="{$data.id}" type="hidden">
+          <textarea required wrap="soft" style="width:60%;height:100px;" name="comment"></textarea>
+
+        </div>
+        <div class="col-sm-12 col-xs-12" style="margin-top:20px">
+          <button type="submit" class="btn btn-w-m btn-info" >提交</button>
+        </div>
+    </div>
+    </form>
+  </div>
+
+  <hr class="featurette-divider">
+  <!-- FOOTER -->
+  <footer>
+    <p class="pull-right">
+      <a href="">Back to top</a>
+    </p>
+    <p>© 2018 </p>
+  </footer>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="/index/js/jquery-1.12.3.min.js"></script>
+  <script src="/index/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(".foo img").addClass("carousel-inner img-responsive img-rounded");
+  </script>
+  <script src="/admin/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+  <script type="text/javascript" src="/index/tools/raty/lib/jquery.raty.min.js"></script>
+  <script>
+    $("#star").raty({
+      width: "180px",
+      scoreName: "star",
+
+      half: true,
+
+      size: 24,
+
+      starHalf: '/index/tools/raty/demo/img/star-half-big.png',
+
+      starOff: '/index/tools/raty/demo/img/star-off-big.png',
+
+      starOn: '/index/tools/raty/demo/img/star-on-big.png'
+    });
+    $(function(){
+      $("#form").on("submit",function(e){
+        e.preventDefault();
+        var data = $("#form").serializeArray();
+        $.ajax({
+          url:"/index/comment/ajaxAdd",
+          type:"post",
+          data:data,
+          success:function(res){
+            if(res.code == 1){
+              alert("评论成功");
+              window.location.href = "/index/movie?id={$data.id}";
+            }else{
+              alert(res.msg);
+            }
+          }
+        });
+      });
+    })
+  </script>
+</body>
+
+</html>

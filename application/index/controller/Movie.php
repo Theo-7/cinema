@@ -12,8 +12,15 @@ class Movie extends Controller
         //电影介绍
         $id = input("get.id");
         $data = $this->getMovieByid($id);
-        // dump($data);
+
+        $field = "c.id,c.time,c.score,c.comment,u.name,u.phone";
+        $cdata = Db::name("comment")->alias("c")->where("movieid",$id)->join("user u","c.userid=u.id","left")->field($field)->paginate(2);
+        
+        unset($val);
+        //dump($cdata);
+        //dump($data);
         $this->assign("data", $data);
+        $this->assign("cdata",$cdata);
         return view();
     }
     //根据ｉｄ查询电影信息
@@ -35,7 +42,7 @@ class Movie extends Controller
         //电影演职
         $data['staff'] = Db::name("staff")->where("movieid", $data['id'])->select();
         if ($bo === true) {
-            var_dump(1231354);
+            //var_dump(1231354);
             foreach ($data["staff"] as $k => $vo) {
                 $staff[$vo["office"]][] = $vo;
             }
