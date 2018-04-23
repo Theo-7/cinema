@@ -293,7 +293,7 @@ class Movie extends Common
         if (!empty($id)) {
             $row = Db::name("movietype")->where("id", $id)->delete();
             if ($row) {
-                return ["code"=>1,"data"=>[], "msg"=>"success"];
+               $this->success("/admin/movie/type","删除成功",2);
             }
 
         }
