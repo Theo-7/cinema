@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -11,126 +11,112 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" media="print">
     <link href="/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/admin/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="/admin/css/animate.css" rel="stylesheet">
     <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+    <style>
+        @media print{
+            .ticket-box {
+            font-weight: 300;
+            padding: 0;
+            margin: 0;
+            width: 430px;
+            height: 407px;
+            background: url('/static/ticket.jpeg') no-repeat
+        }
+
+        .ticket-box * {
+            font-weight: 600;
+        }
+
+        .ticket-box .ticket-con {
+            position: relative;
+            display: inline-block;
+            word-wrap: break-word;
+        }
+        }
+        .ticket-box {
+            font-weight: 300;
+            padding: 0;
+            margin: 0;
+            width: 430px;
+            height: 407px;
+            background: url('/static/ticket.jpeg') no-repeat
+        }
+
+        .ticket-box * {
+            font-weight: 600;
+        }
+
+        .ticket-box .ticket-con {
+            position: relative;
+            display: inline-block;
+            word-wrap: break-word;
+        }
+       
+    </style>
 
 </head>
 
 <body class="gray-bg">
-        <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        {volist name="data.seat" id="s"}
+        <div class="row" style="margin:10px 0">
+            <div>
+            <div class="ticket-box" style="">
+                <div class="ticket-con" style="top: 95px;left: 69px;">{$data.hallname}</div>
+                <div class="ticket-con" style="width:100px;top: 103px;left: 142px;">{$data.start|date="Y-m-d H:i:s",###}</div>
+                <div class="ticket-con" style="top: 147px;left: -100px;">{$data.moviename}</div>
+                <div class="ticket-con" style="top: 205px;left: -153px;">{$s}</div>
+                <div class="ticket-con" style="top: 257px;left: -108px;">普通票</div>
+                <div class="ticket-con" style="top: 257px;left: -42px;">￥{$data.price}</div>
+                <div class="ticket-con" style="top: 25px;left: 13px;">{$data.hallname}</div>
+                <div class="ticket-con" style="top: 55px;left: 361px;width:63px">{$data.ordernum}</div>
+                <div class="ticket-con" style="top: 108px;left: 309px;width:63px">{$data.start|date="m.d",###}</div>
+                <div class="ticket-con" style="top: 174px;left: 242px;width:63px">{$data.start|date="H:i",###}</div>
 
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="ibox-content p-xl">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <address>
-                                                <strong>{$data.moviename}</strong><br>
-                                                北京市海淀区上地十街10号<br>
-                                                <abbr title="Phone">总机：</abbr> (+86 10) 5992 8888
-                                            </address>
-                                </div>
-        
-                                <div class="col-sm-6 text-right">
-                                    <h4>单据编号：</h4>
-                                    <h4 class="text-navy">H+-000567F7-00</h4>
-                                    <address>
-                                                <strong>阿里巴巴集团</strong><br>
-                                                中国杭州市华星路99号东部软件园创业大厦6层(310099)<br>
-                                                <abbr title="Phone">总机：</abbr> (86) 571-8502-2088
-                                            </address>
-                                    <p>
-                                        <span><strong>日期：</strong> 2014-11-11</span>
-                                    </p>
-                                </div>
-                            </div>
-        
-                            <div class="table-responsive m-t">
-                                <table class="table invoice-table">
-                                    <thead>
-                                        <tr>
-                                            <th>清单</th>
-                                            <th>数量</th>
-                                            <th>单价</th>
-                                            <th>税率</th>
-                                            <th>总价</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div><strong>尚都比拉2013冬装新款女装 韩版修身呢子大衣 秋冬气质羊毛呢外套</strong>
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>¥26.00</td>
-                                            <td>¥1.20</td>
-                                            <td>¥31,98</td>
-                                        </tr>
-                                       
-                                      
-        
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /table-responsive -->
-        
-                            <table class="table invoice-total">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>总价：</strong>
-                                        </td>
-                                        <td>¥1026.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>税：</strong>
-                                        </td>
-                                        <td>¥235.98</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>总计</strong>
-                                        </td>
-                                        <td>¥1261.98</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="text-right">
-                                <button class="btn btn-primary"><i class="fa fa-dollar"></i> 去付款</button>
-                            </div>
-        
-                            <div class="well m-t"><strong>注意：</strong> 请在30日内完成付款，否则订单会自动取消。
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+            
+        </div>
+        {/volist}
+        <div class="row">
+            <div class="col-sm-12">
+                <button onclick="printTic()" class="btn">打印</button>
+            </div>
+        </div>
+    </div>
 
     <!-- 全局js -->
     <script src="/admin/js/jquery.min.js?v=2.1.4"></script>
     <script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/index/tools/jqprint/jquery.jqprint-0.3.js"></script>
+    <script>
+        function printTic() {
+            window.print();
+            return false;
+            $(window).jqprint({
+                    debug: false, //如果是true则可以显示iframe查看效果（iframe默认高和宽都很小，可以再源码中调大），默认是false
+                    importCSS: true, //true表示引进原来的页面的css，默认是true。（如果是true，先会找$("link[media=print]")，若没有会去找$("link")中的css文件）
+                    printContainer: true, //表示如果原来选择的对象必须被纳入打印（注意：设置为false可能会打破你的CSS规则）。
+                    operaSupport: true //表示如果插件也必须支持歌opera浏览器，在这种情况下，它提供了建立一个临时的打印选项卡。默认是true
+                });
+            $(".ticket-box").each(function () {
+               
+            })
+
+        };
+    </script>
 
 
 
-    <!-- Peity -->
-    <script src="/admin/js/plugins/peity/jquery.peity.min.js"></script>
-
-    <!-- 自定义js -->
-    <script src="/admin/js/content.js?v=1.0.0"></script>
 
 
-    <!-- iCheck -->
-    <script src="/admin/js/plugins/iCheck/icheck.min.js"></script>
 
-    <!-- Peity -->
-    <script src="/admin/js/demo/peity-demo.js"></script>
 
-    
-
-    
-    
 
 </body>
 

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 数据表格</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/admin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/tool/easyUpload/easy-upload.css">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>首页轮播图
+                            <small></small>
+                        </h5>
+                        <div class="ibox-tools">
+                            <!-- <a href="/admin/user/showAdd">
+                                添加管理员
+                            </a> -->
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                            <button onclick="clearMo()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                                    新增图片
+                                </button>
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>图片</th>
+                                    <th>图片路径</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="data" id="vo"}
+                                <tr class="gradeX">
+                                    <td>{$vo.id}</td>
+                                    <td><img width=75 src="{$vo.url}" /></td>
+                                    <td>{$vo.url}</td>
+                                    <td>{$vo.role}
+                                    </td>
+                                    <td>
+                                        <button onclick="changeMo(this)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                                            修改
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                {/volist}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">轮播</h4>
+                </div>
+                <form id="uploadForm" action="/admin/index/newLunbo" method="post" >
+
+                    <div class="modal-body">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+                                <table class="table table-striped">
+
+                                    <tbody>
+                                        <tr>
+                                            <th>图片:</th>
+                                            <th>
+                                                <input required type="text" name="url" value="" id="url"  />
+                                                <div id="easyContainer"></div>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                排序("越大越前")
+                                            </th>
+                                            <th>
+                                                <input required value="50" type="number" name="role"/>
+                                                <input name="id" type="hidden" />
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">确认</button>
+                    </div>
+                </form>
+
+            </div>
+            <small class="font-bold">
+            </small>
+        </div>
+        <small class="font-bold">
+        </small>
+    </div>
+    <!-- 全局js -->
+    <script src="/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/admin/js/content.js?v=1.0.0"></script>
+
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function () {
+            $('.dataTables-example').dataTable();
+        });
+    </script>
+    <script src="/admin/tool/easyUpload/vendor/jquery.cookie-1.4.1.min.js"></script>
+    <script src="/admin/tool/easyUpload/easyUpload.js"></script>
+    <script>
+        $('#easyContainer').easyUpload({
+            allowFileTypes: '*.jpg;*.doc;*.pdf', //允许上传文件类型，格式';*.doc;*.pdf'
+            allowFileSize: 100000, //允许上传文件大小(KB)
+            selectText: '选择文件', //选择文件按钮文案
+            multi: false, //是否允许多文件上传
+            multiNum: 5, //多文件上传时允许的文件数
+            showNote: true, //是否展示文件上传说明
+            note: '', //文件上传说明
+            showPreview: true, //是否显示文件预览
+            url: '/admin/img/one', //上传文件地址
+            fileName: 'file', //文件filename配置参数
+            formParam: {
+                //不需要验证token时可以去掉
+            }, //文件filename以外的配置参数，格式：{key1:value1,key2:value2}
+            timeout: 30000, //请求超时时间
+            successFunc: function (res) {
+                $("#url").val(res.data);
+            }, //上传成功回调函数
+            errorFunc: function (res) {
+                console.log('失败回调', res);
+            }, //上传失败回调函数
+            deleteFunc: function (res) {
+                $("#url").val();
+            } //删除文件回调函数
+        });
+    function changeMo(obj){
+        var o = $(obj).parents("td");
+        var role = o.prev().html();
+            role = parseInt(role);
+        var url = o.prev().prev().html();
+        var id = o.prev().prev().prev().prev().html();
+            id = parseInt(id);
+        $(".easy_upload_delbtn").click();
+        $("#url").val(url);
+        $("[name='role']").val(role);
+        $("[name='id']").val(id);
+        
+    }
+    function clearMo(){
+        $(".easy_upload_delbtn").click();
+        $("#url").val("");
+        $("[name='role']").val(50);
+        $("[name='id']").val("");
+    }
+    </script>
+
+
+
+
+</body>
+
+</html>

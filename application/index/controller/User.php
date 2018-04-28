@@ -31,4 +31,24 @@ class User extends Common
 
         return view("ticket");
     }
+
+    public function info(){
+        $id = session("user_id");
+        $data = Db::name("user")->field("name,phone,avater,gender")->where("id",$id)->find();
+        
+        $this->assign("data",$data);
+        return view("info");
+    }
+
+    public function edit(){
+        $id = session("user_id");
+        $post = input("post.");
+        $result = Db::name("user")->where("id",$id)->update();
+    }
+
+    public function out(){
+       session_destroy();
+        header("Location:/index/index");
+        exit;
+    }
 }

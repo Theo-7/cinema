@@ -24,7 +24,7 @@ class Order extends Common
         }
         unset($val);
         
-         dump($data);
+        // dump($data);
         // dump($hallData);
 
         $this->assign("data",$data);

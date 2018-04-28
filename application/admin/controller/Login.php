@@ -18,11 +18,11 @@ class Login extends Controller
         $captcha = new Captcha();
         if(!empty($post['code'])){
             if (!$captcha->check($post['code'])) {
-                $this->error("验证码错误", "", 2);
+                $this->error("验证码错误");
                 exit;
             }
         }else{
-            $this->error("验证码错误", "", 2);
+            $this->error("验证码错误");
         }
         
         $result = Db::name("admin")->where("name", $post["name"])->find();

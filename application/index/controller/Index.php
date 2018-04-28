@@ -13,7 +13,9 @@ class Index extends Controller
             $val["cover"] = str_replace("\/","/",$val["cover"][0]);
         }
         unset($val);
+        $lunbo = Db::name("lunbo")->order("role desc")->select(); 
         $this->assign("data",$data);
+        $this->assign("lunbo",$lunbo);
         return view();
     }
     public function header(){

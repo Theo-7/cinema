@@ -67,7 +67,7 @@ class Moviehall extends Common
         $hallRow = Db::name("moviehall")->where("id",$id)->find();
         if($hallRow){
             $movieRows = Db::name("movie")->where("datediff(time,now())<=7")->column("id,name,time,duration");
-            $data = Db::name("platter")->alias("p")->join("cinema_movie m","p.movieid=m.id")->join("cinema_moviehall h","p.hallid=h.id")->field("h.name as hallname,m.name as moviename,p.movieid,p.hallid,p.start,p.end,p.id,p.price")->where("p.hallid={$id}")->select();
+            $data = Db::name("platter")->alias("p")->join("cinema_movie m","p.movieid=m.id")->join("cinema_moviehall h","p.hallid=h.id")->field("h.name as hallname,m.name as moviename,p.movieid,p.hallid,p.start,p.end,p.id,p.price")->where("p.hallid={$id}")->order("id desc")->select();
             $this->assign("movieRows",$movieRows);
             $this->assign("id",$id);
             $this->assign("hall",$hallRow);
@@ -94,6 +94,62 @@ class Moviehall extends Common
             $this->success("添加成功");
         }else{
             $this->error("失败:".Db::name("platter")->getError());
+        }
+    }
+    //显示修改排片的页面
+    public function showEditPlatter(){
+        $id = input("get.id");
+        $id = intval($id);
+        if($id){
+           
+            $data = Db::name("platter")->where("id",$id)->find();
+           
+            if(strtotime($data["start"])<=time()){
+                $this->error("此排片以播放");
+                exit;
+            }
+            $hall = Db::name("moviehall")->where("id",$data['hallid'])->find();
+            $movieRows = Db::name("movie")->where("datediff(time,now())<=7")->column("id,name,time,duration");
+
+            $this->assign("movieRows",$movieRows);
+            $this->assign("hall",$hall);
+            $this->assign("data",$data);
+        }else{
+            $this->error("非法请求","",2);
+        }
+        return view("edit_platter");
+    }
+    //修改排片
+    public function editPlatter(){
+        $post = input("post.");
+        $result1 = Db::name("platter")->where("id",$post["hallid"])->where("'{$post['start']}'>=start")->where("'{$post['start']}'<=end")->find();
+        $result2 = Db::name("platter")->where("id",$post["hallid"])->where("'{$post['end']}'>=start")->where("'{$post['end']}'<=end")->find();
+
+        if($result1||$result2){
+            $this->error("失败:时间冲突");
+        }else{
+                    $data['movieid'] = $post['movieid'];
+                    $data['price'] = $post["price"];
+                    $data["start"] = $post["start"];
+                    $data["end"] = $post["end"];
+                    $result = Db::name("platter")->where("id",$post['pid'])->update($data);
+
+        }
+        if($result){
+            $this->success("修改成功","/admin/moviehall/platter",2);
+        }else{
+            $this->error("失败:".Db::name("platter")->getError());
+        }
+    }
+    //删除排片
+    public function delPlatter(){
+        $id = input("post.id");
+        $id = intval($id);
+        if($id){
+            $result = Db::name("platter")->where("id",$id)->delete();
+            if($result){
+                return ["code"=>1,"msg"=>"success","data"=>[]];
+            }
         }
     }
     //ajax判断排片是否冲突

@@ -48,15 +48,17 @@
        </ol>  
        <!-- 轮播（Carousel）项目 -->
        <div class="carousel-inner">
-          <div class="item active foo">
-             <img src="/index/img/a.jpg" alt="First slide" width="800px">
+         {volist name="lunbo" id="l"}
+          <div class="item {eq name='key' value='0'}active{/eq} foo">
+             <img src="{$l.url}" alt="" width="800px">
           </div>
-          <div class="item foo">
+        {/volist}
+          <!-- <div class="item foo">
              <img src="/index/img/b.jpg" alt="Second slide">
           </div>
           <div class="item foo">
              <img src="/index/img/c.jpg" alt="Third slide">
-          </div>
+          </div> -->
        </div>
        <!-- 轮播（Carousel）导航 -->
       <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
