@@ -41,13 +41,15 @@ class Login extends Controller{
                 header("Location:/index/index");
                 exit;
             }else{
-                dump($result);
+                
                 $errorCode = 1; //密码错误
             }
         }else{
             $errorCode = 0;//此电话号码未注册
             
         }
-        header("Location:/index/login?errorCode={$errorCode}");
+    
+        header("Location:/index/login/index?errorCode={$errorCode}");//index/login/index?errorCode={$errorCode}
+        exit;
     }
 }

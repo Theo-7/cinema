@@ -172,6 +172,12 @@
               </span>
               <span class="note-help">如果您点击“付款”按钮，即表示您同意该次的执行操作。</span>
             </dd>
+            <dd style="margin-top:10px">
+                <span class="new-btn-login-sp">
+                  <button id="user_pay" class="btn btn-primary btn-md" type="button" style="text-align:center;">个人余额支付</button>
+                </span>
+                <span  class="note-help">个人余额：￥{$user_money} </span> <a href="/index/user/recharge" >去充值</a>
+              </dd>
           </dl>
         </div>
       </form>
@@ -225,11 +231,31 @@
     console.log(date.format("MM/dd/yyyy h:m:s"));
     var datetime = date.format("MM/dd/yyyy h:m:s");
       $('.countdown').downCount({
-            date: datetime,
+            date: datetime
         }, function () {
-            alert('请重新购买!');
+          location.href="/index/movie/index?id={$movieData.id}";
         });
 
+$(function(){
+  $("#user_pay").on("click",function(){
+    if(confirm("确定支付？")){
+      $.ajax({
+        type:"post",
+        url:"/index/user/userPay",
+        data:{money:{$data.num*$data.price},num:{$data.ordernum}},
+        success:function(res){
+          console.log(res);
+          if(res.code==1){
+            alert(res.msg);
+            window.location.href="/index/user/ticket";
+          }else if(res.code==0){
+            alert(res.msg);
+          }
+        }
+      });
+    }
+  })
+})
   </script>
 </body>
 

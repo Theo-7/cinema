@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>main</title>
+    <link href="/index/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/tool/easyUpload/easy-upload.css">
+
+
+    <style type="text/css">
+
+      .carousel {
+        margin-bottom: 60px;
+      }
+      /* Center align the text within the three columns below the carousel */
+      .marketing .col-lg-3 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .marketing h2 {
+        font-weight: normal;
+      }
+      .marketing .col-lg-3 p {
+       /* margin-right: 10px;
+        margin-left: 10px;*/
+      }
+      /*footer {
+        margin-top: 40px;
+      }*/
+      .featurette-divider {
+        
+        margin: 80px 0; /* Space out the Bootstrap <hr> more */
+      }
+    </style>
+
+  </head>
+  <body class="container">
+   {include file="/index/header" /}
+   <div class="row">
+      <div class="col-sm-12">
+        <h2>用户充值</h2>
+        <form style="text-align: center" class="form-horizontal" method="POST" action="/index/Alipay/pay">
+          <div class="form-group" style="margin:52px 0 30px 0">
+              <label class="col-sm-3 control-label">充值金额：</label>
+
+              <div class="col-sm-6">
+                  <input type="number" id="WIDtotal_amount" name="WIDtotal_amount" step="0.01" required placeholder="" value="" class="form-control"> 
+                  <input type="hidden" id="WIDout_trade_no" name="WIDout_trade_no" value={$num} />
+                  <input type="hidden" id="WIDsubject" name="WIDsubject" value="影达电影城" />
+                  <input type="hidden" id="WIDbody" name="WIDbody"  />
+                  <input type="hidden" name="recharge" value="recharge" />
+                </div>
+              <div class="col-sm-2" style="line-height: 34px;color:red">
+                    充值后不能退回
+              </div>
+          </div>
+          <button class="btn btn-danger btn-md" type="submit" style="text-align:center;">支付宝付款</button>
+
+         
+        
+      </form>
+      </div>
+  </div>
+
+   
+
+    
+      <!-- /.row -->
+
+    <hr class="featurette-divider">
+    <!-- FOOTER -->
+    <footer>
+      <p class="pull-right"><a href="">Back to top</a></p>
+      <p>© 2018 </p>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/index/js/jquery-1.12.3.min.js"></script>
+    <script src="/index/js/bootstrap.min.js"></script>
+    <script type="text/javascript" >
+       $(".foo img").addClass("carousel-inner img-responsive img-rounded"); 
+    </script>
+
+
+
+
+<!-- 自定义js -->
+<script src="/admin/js/content.js?v=1.0.0"></script>
+
+
+<!-- Page-Level Scripts -->
+<script src="/admin/tool/easyUpload/vendor/jquery.cookie-1.4.1.min.js"></script>
+    <script src="/admin/tool/easyUpload/easyUpload.js"></script>
+    <script>
+        $('#easyContainer').easyUpload({
+            allowFileTypes: '*.jpg;*.doc;*.pdf', //允许上传文件类型，格式';*.doc;*.pdf'
+            allowFileSize: 100000, //允许上传文件大小(KB)
+            selectText: '选择文件', //选择文件按钮文案
+            multi: false, //是否允许多文件上传
+            multiNum: 5, //多文件上传时允许的文件数
+            showNote: true, //是否展示文件上传说明
+            note: '', //文件上传说明
+            showPreview: true, //是否显示文件预览
+            url: '/index/img/one', //上传文件地址
+            fileName: 'file', //文件filename配置参数
+            formParam: {
+                //不需要验证token时可以去掉
+            }, //文件filename以外的配置参数，格式：{key1:value1,key2:value2}
+            timeout: 30000, //请求超时时间
+            successFunc: function (res) {
+                $("#avater").prop("src",res.data);
+            }, //上传成功回调函数
+            errorFunc: function (res) {
+                console.log('失败回调', res);
+            }, //上传失败回调函数
+            deleteFunc: function (res) {
+                
+            } //删除文件回调函数
+        });
+    </script>
+    
+  </body>
+</html>

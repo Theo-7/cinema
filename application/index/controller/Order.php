@@ -16,6 +16,7 @@ class Order extends Common
         
         $hallData = Db::name("moviehall")->where("id",$data['hallid'])->find();
         $movieData = Db::name("movie")->where("id",$data["movieid"])->find();
+        $user_money = Db::name("user")->where("id",$data["userid"])->value("money");
         
         $data["seat"] = json_decode($data["seat"],true);
         foreach($data['seat'] as &$val)
@@ -26,7 +27,7 @@ class Order extends Common
         
         // dump($data);
         // dump($hallData);
-
+        $this->assign("user_money",$user_money);
         $this->assign("data",$data);
         $this->assign("movieData",$movieData);
         $this->assign("hallData",$hallData);
