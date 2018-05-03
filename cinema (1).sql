@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 2018-04-23 19:32:21
+-- Generation Time: 2018-05-03 19:36:20
 -- 服务器版本： 5.5.59-0ubuntu0.14.04.1
 -- PHP Version: 5.6.35-1+ubuntu14.04.1+deb.sury.org+1
 
@@ -44,7 +44,7 @@ CREATE TABLE `cinema_admin` (
 --
 
 INSERT INTO `cinema_admin` (`id`, `name`, `roleid`, `lastloginip`, `lastlogintime`, `password`, `loginip`, `realname`, `email`, `logintime`) VALUES
-(1, 'admin', 1, '127.0.0.1', '1524475808', '$2y$10$tGUgvvMqColEuXmTqlfZgOx7VbNffFk.g9t2sqpSFEob8BaNAXPky', '127.0.0.1', 'ht', '', '1524480707');
+(1, 'admin', 1, '127.0.0.1', '1525312203', '$2y$10$tGUgvvMqColEuXmTqlfZgOx7VbNffFk.g9t2sqpSFEob8BaNAXPky', '127.0.0.1', 'ht', '', '1525327941');
 
 -- --------------------------------------------------------
 
@@ -100,6 +100,27 @@ CREATE TABLE `cinema_comment` (
 
 INSERT INTO `cinema_comment` (`id`, `movieid`, `userid`, `comment`, `score`, `time`) VALUES
 (2, 1, 1, '很好看', 5, '1524472302');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cinema_lunbo`
+--
+
+CREATE TABLE `cinema_lunbo` (
+  `id` int(255) NOT NULL,
+  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `role` int(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `cinema_lunbo`
+--
+
+INSERT INTO `cinema_lunbo` (`id`, `url`, `role`) VALUES
+(1, '/uploads/20180427/8d0563f248ed8bc0959660fb6a8de30e.jpg', 50),
+(2, '/uploads/20180427/edc9a1cefe1dcf0180266593e5b72eac.jpg', 49),
+(3, '/uploads/20180427/9a13a3abb201df85bdfc49e6ce1d398e.jpg', 48);
 
 -- --------------------------------------------------------
 
@@ -188,24 +209,34 @@ CREATE TABLE `cinema_order` (
   `alinum` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '支付宝交易号',
   `takenum` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '取票码',
   `paytime` datetime NOT NULL COMMENT '支付时间',
-  `isdel` int(10) NOT NULL DEFAULT '0' COMMENT '是否删除,0：不删除，1：删除'
+  `isdel` int(10) NOT NULL DEFAULT '0' COMMENT '是否删除,0：不删除，1：删除',
+  `isUpay` tinyint(4) DEFAULT '0' COMMENT '是否余额支付：0否1是'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 转存表中的数据 `cinema_order`
 --
 
-INSERT INTO `cinema_order` (`id`, `userid`, `seat`, `money`, `status`, `time`, `pid`, `num`, `ordernum`, `alinum`, `takenum`, `paytime`, `isdel`) VALUES
-(1, 1, '[\"3_4\",\"3_5\"]', 98, 1, '1523518385', 3, 2, '2018041234542', '2018041221001004720201259254', '82406', '0000-00-00 00:00:00', 0),
-(2, 1, '[\"3_5\",\"3_6\"]', 98, 1, '1523608747', 4, 2, '2018041339241', '2018041321001004720201259633', '99597', '2018-04-13 16:41:08', 0),
-(3, 1, '[\"4_5\",\"4_6\"]', 98, 0, '1523841658', 4, 2, '2018041671483', '0', '0', '0000-00-00 00:00:00', 1),
-(4, 1, '[\"2_5\",\"2_6\"]', 98, 0, '1523863449', 4, 2, '2018041603326', '0', '0', '0000-00-00 00:00:00', 1),
-(5, 1, '[\"2_5\",\"2_6\"]', 98, 0, '1523864063', 4, 2, '2018041681072', '0', '0', '0000-00-00 00:00:00', 1),
-(6, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523930162', 5, 2, '2018041749100', '0', '0', '0000-00-00 00:00:00', 1),
-(7, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523930773', 5, 2, '2018041783517', '0', '0', '0000-00-00 00:00:00', 1),
-(8, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523931245', 5, 2, '2018041732284', '0', '0', '0000-00-00 00:00:00', 1),
-(9, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523931747', 5, 2, '2018041751996', '0', '0', '0000-00-00 00:00:00', 1),
-(10, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523932213', 5, 2, '2018041762727', '0', '0', '0000-00-00 00:00:00', 1);
+INSERT INTO `cinema_order` (`id`, `userid`, `seat`, `money`, `status`, `time`, `pid`, `num`, `ordernum`, `alinum`, `takenum`, `paytime`, `isdel`, `isUpay`) VALUES
+(2, 1, '[\"3_5\",\"3_6\"]', 98, 1, '1523608747', 4, 2, '2018041339241', '2018041321001004720201259633', '99597', '2018-04-13 16:41:08', 0, 0),
+(3, 1, '[\"4_5\",\"4_6\"]', 98, 0, '1523841658', 4, 2, '2018041671483', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(4, 1, '[\"2_5\",\"2_6\"]', 98, 0, '1523863449', 4, 2, '2018041603326', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(5, 1, '[\"2_5\",\"2_6\"]', 98, 0, '1523864063', 4, 2, '2018041681072', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(6, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523930162', 5, 2, '2018041749100', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(7, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523930773', 5, 2, '2018041783517', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(8, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523931245', 5, 2, '2018041732284', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(9, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523931747', 5, 2, '2018041751996', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(10, 1, '[\"3_5\",\"3_6\"]', 98, 0, '1523932213', 5, 2, '2018041762727', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(12, 1, '[\"3_5\",\"3_6\"]', 0, 0, '1524487471', 6, 2, '2018042313271', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(13, 1, '[\"3_5\",\"3_6\"]', 100, 0, '1525332429', 7, 2, '2018050312368', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(14, 1, '[\"3_5\",\"3_6\"]', 100, 0, '1525334088', 7, 2, '2018050341432', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(15, 1, '[\"3_5\",\"3_6\"]', 100, 0, '1525335015', 7, 2, '2018050329797', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(16, 1, '[\"3_5\",\"3_6\"]', 100, 0, '1525337516', 7, 2, '2018050331238', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(17, 1, '[\"3_5\",\"3_6\"]', 100, 0, '1525338695', 7, 2, '2018050356940', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(18, 1, '[\"3_5\"]', 50, 0, '1525339158', 7, 1, '2018050349281', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(19, 1, '[\"3_6\"]', 50, 1, '1525339616', 7, 1, '2018050344813', '0', '71056', '0000-00-00 00:00:00', 0, 1),
+(20, 1, '[\"2_5\"]', 50, 0, '1525339870', 7, 1, '2018050362867', '0', '0', '0000-00-00 00:00:00', 1, 0),
+(21, 1, '[\"3_7\"]', 50, 0, '1525340476', 7, 1, '2018050319341', '0', '0', '0000-00-00 00:00:00', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -227,11 +258,35 @@ CREATE TABLE `cinema_platter` (
 --
 
 INSERT INTO `cinema_platter` (`id`, `hallid`, `movieid`, `start`, `end`, `price`) VALUES
-(1, 1, 1, '2018-04-09 00:00:00', '2018-04-09 02:03:00', 49),
 (2, 1, 1, '2018-04-11 00:00:00', '2018-04-11 02:03:00', 49),
 (3, 1, 1, '2018-04-13 00:00:00', '2018-04-13 02:03:00', 49),
 (4, 1, 1, '2018-04-17 00:00:00', '2018-04-17 02:03:00', 49),
-(5, 1, 1, '2018-04-20 00:00:00', '2018-04-20 02:03:00', 49);
+(5, 1, 1, '2018-04-20 00:00:00', '2018-04-20 02:03:00', 49),
+(6, 1, 1, '2018-04-27 00:00:00', '2018-04-27 02:03:00', 50),
+(7, 1, 1, '2018-05-05 00:00:00', '2018-05-05 02:03:00', 50);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cinema_recharge`
+--
+
+CREATE TABLE `cinema_recharge` (
+  `id` int(255) NOT NULL,
+  `num` bigint(255) NOT NULL COMMENT '订单号',
+  `userid` int(255) NOT NULL,
+  `time` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '支付成功时间',
+  `money` float NOT NULL COMMENT '金额',
+  `alinum` varchar(125) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- 转存表中的数据 `cinema_recharge`
+--
+
+INSERT INTO `cinema_recharge` (`id`, `num`, `userid`, `time`, `money`, `alinum`) VALUES
+(1, 201805033002771, 1, '2018-05-03 15:05:48', 15.5, '2018050321001004900200220777'),
+(28, 201805032492596, 1, '2018-05-03 17:02:58', 10, '2018050321001004900200221094');
 
 -- --------------------------------------------------------
 
@@ -283,15 +338,17 @@ CREATE TABLE `cinema_user` (
   `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `avater` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'http://p0.meituan.net/movie/7dd82a16316ab32c8359debdb04396ef2897.png',
   `registertime` datetime NOT NULL,
-  `logintime` datetime NOT NULL
+  `logintime` datetime NOT NULL,
+  `gender` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '未知',
+  `money` float NOT NULL DEFAULT '0' COMMENT '个人总余额'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 转存表中的数据 `cinema_user`
 --
 
-INSERT INTO `cinema_user` (`id`, `name`, `password`, `phone`, `avater`, `registertime`, `logintime`) VALUES
-(1, '', '$2y$10$ESiQa5jG2gcICMvUdrr3quL/PnxHLN4B/L28LIxN8zSNBeO0Al.8i', '15818348574', 'http://p0.meituan.net/movie/7dd82a16316ab32c8359debdb04396ef2897.png', '2018-04-08 17:12:35', '2018-04-23 16:11:03');
+INSERT INTO `cinema_user` (`id`, `name`, `password`, `phone`, `avater`, `registertime`, `logintime`, `gender`, `money`) VALUES
+(1, '', '$2y$10$ESiQa5jG2gcICMvUdrr3quL/PnxHLN4B/L28LIxN8zSNBeO0Al.8i', '15818348574', 'http://p0.meituan.net/movie/7dd82a16316ab32c8359debdb04396ef2897.png', '2018-04-08 17:12:35', '2018-05-03 19:06:22', '未知', 14925.5);
 
 --
 -- Indexes for dumped tables
@@ -319,6 +376,12 @@ ALTER TABLE `cinema_cinema`
 -- Indexes for table `cinema_comment`
 --
 ALTER TABLE `cinema_comment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cinema_lunbo`
+--
+ALTER TABLE `cinema_lunbo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -350,6 +413,12 @@ ALTER TABLE `cinema_order`
 -- Indexes for table `cinema_platter`
 --
 ALTER TABLE `cinema_platter`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cinema_recharge`
+--
+ALTER TABLE `cinema_recharge`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -395,6 +464,11 @@ ALTER TABLE `cinema_cinema`
 ALTER TABLE `cinema_comment`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- 使用表AUTO_INCREMENT `cinema_lunbo`
+--
+ALTER TABLE `cinema_lunbo`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- 使用表AUTO_INCREMENT `cinema_movie`
 --
 ALTER TABLE `cinema_movie`
@@ -413,12 +487,17 @@ ALTER TABLE `cinema_movietype`
 -- 使用表AUTO_INCREMENT `cinema_order`
 --
 ALTER TABLE `cinema_order`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- 使用表AUTO_INCREMENT `cinema_platter`
 --
 ALTER TABLE `cinema_platter`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- 使用表AUTO_INCREMENT `cinema_recharge`
+--
+ALTER TABLE `cinema_recharge`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- 使用表AUTO_INCREMENT `cinema_rold`
 --
@@ -438,7 +517,7 @@ DELIMITER $$
 --
 -- 事件
 --
-CREATE DEFINER=`root`@`localhost` EVENT `order_event` ON SCHEDULE EVERY 1 SECOND STARTS '2018-04-16 14:53:39' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE cinema_order set isdel=1 where unix_timestamp(now())-time>=450 and status=0$$
+CREATE DEFINER=`root`@`localhost` EVENT `order_event` ON SCHEDULE EVERY 1 SECOND STARTS '2018-04-16 14:53:39' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE cinema_order set isdel=1 where (unix_timestamp(now())-time)>=450 and status=0$$
 
 DELIMITER ;
 
