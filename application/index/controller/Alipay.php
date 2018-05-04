@@ -51,9 +51,12 @@ class Alipay extends Common
         //商品描述，可空
         $body = trim($_POST['WIDbody']);
         //改变同步跳转地址
-        if(trim($_POST['recharge'])==="recharge"){
-            $this->config['return_url'] = "http://www.cinema.org/index/user/return_url";
+        if(!empty($_POST['recharge'])){
+            if(trim($_POST['recharge'])==="recharge"){
+                $this->config['return_url'] = "http://www.cinema.org/index/user/return_url";
+            }
         }
+       
         Loader::import("Ali.pagepay.buildermodel.AlipayTradePagePayContentBuilder");
         Loader::import("Ali.pagepay.service.AlipayTradeService");
 
