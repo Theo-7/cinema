@@ -60,7 +60,7 @@ class Statistic extends Common
 
         }
         unset($val);
-        dump($data);
+        //dump($data);
         $this->assign("data",$data);
         return view("ticket");
     }

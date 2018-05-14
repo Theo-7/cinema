@@ -47,7 +47,15 @@ class User extends Common
     {
         $id = session("user_id");
         $post = input("post.");
-        $result = Db::name("user")->where("id", $id)->update();
+        $post = array_filter($post);
+        // var_dump($post);
+        // exit;
+        $result = Db::name("user")->where("id", $id)->update($post);
+        if($result){
+            $this->success("修改成功","/index/user/info",2);
+        }else{
+            $this->error("修改失败");
+        }
     }
 
     public function out()
@@ -112,6 +120,7 @@ class User extends Common
                 "money" => $money,
 
             ];
+            $code = 0;
             $result = Db::name("recharge")->where("num", $out_trade_no)->find();
             if (!$result) {
                 Db::startTrans();
@@ -121,14 +130,20 @@ class User extends Common
                     $newMoney = round($oldMoney + $money, 2);
                     Db::name("user")->where("id", $id)->update(["money" => $newMoney]);
                     Db::commit();
-                    $this->success("充值成功","/index/user/finance",2);
+                    $code = 1;
+                    //;
                 } catch (\Exception $e) {
                     Db::rollback();
+                    
                     $this->error("错误");
                 }
-
+                if($code===1){
+                    $this->success("充值成功","/index/user/finance",2);
+                }
+                
             } else {
                 $code = 2;
+                echo 2;
                 // header("Location:/index/user/recharge?code=" . $code);
                 exit;
             }
@@ -179,6 +194,7 @@ class User extends Common
         $money = Db::name("user")->where("id",$id)->value("money");
 
         $data = Db::name("recharge")->field("unix_timestamp(time) as time,num,(+money) as money")->where("userid",$id)->union("select time,ordernum as num,(-money) as money from cinema_order where userid={$id} and isdel=0")->order("time desc")->select();
+        //dump($data);
         $this->assign("data",$data);
         $this->assign("money",$money);
         return view("finance");

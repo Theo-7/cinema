@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 数据表格</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/admin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>电影厅管理</h5>
+                        <div class="ibox-tools">
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover dataTables-example ">
+                            <thead>
+                                <tr>
+                                    <th>用户id</th>
+                                    <th>用户头像</th>
+                                    <th>用户名</th>
+                                    <th>用户电话</th>
+                                    <th>金额</th>
+                                    <th>注册时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="data" id="vo" empty="暂时没有数据"}
+                                <tr class="gradeX">
+                                    <td>{$vo.id}</td>
+                                    <td><img width=50 height=50 src="{$vo.avater}" />
+                                    </td>
+                                    <td>
+                                        {$vo.name}
+                                    </td>
+                                    <td>
+                                        {$vo.phone}
+                                    </td>
+                                    <td>
+                                        {$vo.money}
+                                    </td>
+                                    <td>
+                                        {$vo.registertime}
+                                    </td>
+                                </tr>
+                                {/volist}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   
+    <!-- 全局js -->
+    <script src="/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/admin/js/content.js?v=1.0.0"></script>
+
+
+    <!-- Page-Level Scripts -->
+    <script>
+         $(document).ready(function () {
+            $('.dataTables-example').dataTable();
+
+            // /* Init DataTables */
+            // var oTable = $('#editable').dataTable();
+
+            // /* Apply the jEditable handlers to the table */
+            // oTable.$('td').editable('../example_ajax.php', {
+            //     "callback": function (sValue, y) {
+            //         var aPos = oTable.fnGetPosition(this);
+            //         oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+            //     },
+            //     "submitdata": function (value, settings) {
+            //         return {
+            //             "row_id": this.parentNode.getAttribute('id'),
+            //             "column": oTable.fnGetPosition(this)[2]
+            //         };
+            //     },
+
+            //     "width": "90%",
+            //     "height": "100%"
+            // });
+
+
+        });
+    </script>
+  
+
+
+
+
+</body>
+
+</html>

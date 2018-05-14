@@ -28,59 +28,57 @@
       border-radius: 5px;
       padding: 15px;
     }
-    ul.countdown {
-            list-style: none;
-            margin: 0px 0;
-            padding: 0;
-            display: block;
-            text-align: center;
-        }
-        
-        ul.countdown li {
-            display: inline-block;
-        }
-        
-        ul.countdown li span {
-            font-size: 40px;
-            font-weight: 300;
-            line-height: 80px;
-        }
-        
-        ul.countdown li.seperator {
-            font-size: 40px;
-            line-height: 70px;
-            vertical-align: top;
-        }
-        
-        ul.countdown li p {
-            color: #a7abb1;
-            font-size: 14px;
-        }
-        
-        a {
-            color: #76949F;
-            text-decoration: none;
-        }
-        
-        a:hover {
-            text-decoration: underline;
-        }
-        
-        .source {
-            width: 405px;
-            margin: 0 auto;
-            background: #4f5861;
-            color: #a7abb1;
-            font-weight: bold;
-            display: block;
-            white-space: pre;
-            -webkit-border-radius: 3px;
-            -moz-border-radius: 3px;
-            border-radius: 3px;
-        }
-        
-      
 
+    ul.countdown {
+      list-style: none;
+      margin: 0px 0;
+      padding: 0;
+      display: block;
+      text-align: center;
+    }
+
+    ul.countdown li {
+      display: inline-block;
+    }
+
+    ul.countdown li span {
+      font-size: 40px;
+      font-weight: 300;
+      line-height: 80px;
+    }
+
+    ul.countdown li.seperator {
+      font-size: 40px;
+      line-height: 70px;
+      vertical-align: top;
+    }
+
+    ul.countdown li p {
+      color: #a7abb1;
+      font-size: 14px;
+    }
+
+    a {
+      color: #76949F;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .source {
+      width: 405px;
+      margin: 0 auto;
+      background: #4f5861;
+      color: #a7abb1;
+      font-weight: bold;
+      display: block;
+      white-space: pre;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+    }
   </style>
 
 </head>
@@ -123,31 +121,33 @@
     <div class="pull-right" style="text-align: right;">
       <p class="sum">合计：{$data.num*$data.price}元</p>
       <ul class="countdown">
-          为您锁票
-          <!-- <li> <span class="days">00</span>
+        为您锁票
+        <!-- <li> <span class="days">00</span>
               <p class="days_ref">days</p>
           </li> -->
-          <!-- <li class="seperator">.</li> -->
-          <!-- <li> <span class="hours">00</span>
+        <!-- <li class="seperator">.</li> -->
+        <!-- <li> <span class="hours">00</span>
               <p class="hours_ref">hours</p>
           </li>
           <li class="seperator">:</li> -->
-          <li> <span class="minutes">00</span>
-              <!-- <p class="minutes_ref">minutes</p> -->
-          </li>
-          <li class="seperator">:</li>
-          <li> <span class="seconds">00</span>
-              <!-- <p class="seconds_ref">seconds</p> -->
-          </li>分钟
+        <li>
+          <span class="minutes">00</span>
+          <!-- <p class="minutes_ref">minutes</p> -->
+        </li>
+        <li class="seperator">:</li>
+        <li>
+          <span class="seconds">00</span>
+          <!-- <p class="seconds_ref">seconds</p> -->
+        </li>分钟
       </ul>
-  
+
       <a id="send_order_btn" class="btn btn-primary btn-md" href="javascritp:void(0);" role="button">提交订单(请在时间内付款)</a>
     </div>
   </div>
   <div id="pay_method" class="hidden">
     支付方式：
     <div class="pay_box">
-      <form name=alipayment action=/index/Alipay/pay method="post" >
+      <form name=alipayment action=/index/Alipay/pay method="post">
         <div id="body1" class="show" name="divcontent">
           <dl class="content">
             <dd>
@@ -173,11 +173,12 @@
               <span class="note-help">如果您点击“付款”按钮，即表示您同意该次的执行操作。</span>
             </dd>
             <dd style="margin-top:10px">
-                <span class="new-btn-login-sp">
-                  <button id="user_pay" class="btn btn-primary btn-md" type="button" style="text-align:center;">个人余额支付</button>
-                </span>
-                <span  class="note-help">个人余额：￥{$user_money} </span> <a href="/index/user/recharge" >去充值</a>
-              </dd>
+              <span class="new-btn-login-sp">
+                <button id="user_pay" class="btn btn-primary btn-md" type="button" style="text-align:center;">个人余额支付</button>
+              </span>
+              <span class="note-help">个人余额：￥{$user_money} </span>
+              <a href="/index/user/recharge">去充值</a>
+            </dd>
           </dl>
         </div>
       </form>
@@ -202,60 +203,62 @@
       $("#pay_success_info").removeClass("hidden");
     })
   </script>
-  <script src="/index/js/time.js"></script>
   <script>
-    var time = {$data.time}+450;
-    var date = new Date();
-    date.setTime(time*1000);
-    Date.prototype.format = function(format) {
-       var date = {
-              "M+": this.getMonth() + 1,
-              "d+": this.getDate(),
-              "h+": this.getHours(),
-              "m+": this.getMinutes(),
-              "s+": this.getSeconds(),
-              "q+": Math.floor((this.getMonth() + 3) / 3),
-              "S+": this.getMilliseconds()
-       };
-       if (/(y+)/i.test(format)) {
-              format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
-       }
-       for (var k in date) {
-              if (new RegExp("(" + k + ")").test(format)) {
-                     format = format.replace(RegExp.$1, RegExp.$1.length == 1
-                            ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
-              }
-       }
-       return format;
-}
-    console.log(date.format("MM/dd/yyyy h:m:s"));
-    var datetime = date.format("MM/dd/yyyy h:m:s");
-      $('.countdown').downCount({
-            date: datetime
-        }, function () {
-          location.href="/index/movie/index?id={$movieData.id}";
-        });
-
-$(function(){
-  $("#user_pay").on("click",function(){
-    if(confirm("确定支付？")){
-      $.ajax({
-        type:"post",
-        url:"/index/user/userPay",
-        data:{money:{$data.num*$data.price},num:{$data.ordernum}},
-        success:function(res){
-          console.log(res);
-          if(res.code==1){
-            alert(res.msg);
-            window.location.href="/index/user/ticket";
-          }else if(res.code==0){
-            alert(res.msg);
-          }
+    var time = {$interval};
+    function timer(intDiff) {
+      var inter = window.setInterval(function () {
+        var day = 0,
+          hour = 0,
+          minute = 0,
+          second = 0; //时间默认值        
+        if (intDiff > 0) {
+          day = Math.floor(intDiff / (60 * 60 * 24));
+          hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+          minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+          second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
         }
-      });
+        if (minute <= 9) minute = '0' + minute;
+        if (second <= 9) second = '0' + second;
+        // $('#day_show').html(day + "天");
+        // $('#hour_show').html('<s id="h"></s>' + hour + '时');
+        $('.minutes').html('<s></s>' + minute + '分');
+        $('.seconds').html('<s></s>' + second + '秒');
+        intDiff--;
+        if(intDiff<=0){
+          alert("锁票时间已过，请重新购买");
+          window.history.go(-1);
+          clearInterval(inter);
+          
+        }
+      }, 1000);
     }
-  })
-})
+    $(function () {
+      timer(time);
+    });
+
+    $(function () {
+      $("#user_pay").on("click", function () {
+        if (confirm("确定支付？")) {
+          $.ajax({
+            type: "post",
+            url: "/index/user/userPay",
+            data: {
+              money: {$data.num * $data.price},
+              num: {$data.ordernum}
+            },
+            success: function (res) {
+              console.log(res);
+              if (res.code == 1) {
+                alert(res.msg);
+                window.location.href = "/index/user/ticket";
+              } else if (res.code == 0) {
+                alert(res.msg);
+              }
+            }
+          });
+        }
+      })
+    })
   </script>
 </body>
 

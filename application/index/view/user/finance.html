@@ -59,8 +59,10 @@
                         {volist name="data" id="vo" empty="无电影票"}
                           <tr class="gradeX">
                               <td>{$vo.num}</td>
-                              <td>￥{$vo.money|round=###,2}</td>
-                              <td>{$vo.time|date="Y-m-d H:i:s",###}</td>                              
+                              <td>￥{$vo.money|number_format=###,2}</td>
+                              <td>{$vo.time|date="Y-m-d H:i:s",###}</td>    
+                             
+                                                        
                               
                           </tr>
                         {/volist}
@@ -106,7 +108,9 @@
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function () {
-        $('.dataTables-example').dataTable();
+        $('.dataTables-example').dataTable({
+          "order":[[2,"desc"]]
+        });
 
         /* Init DataTables */
         
