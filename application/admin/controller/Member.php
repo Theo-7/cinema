@@ -8,7 +8,7 @@ class Member extends Common
 {
     public function index()
     {
-        $data = Db::name("user")->field("name,phone,avater,id,money,registertime")->select();
+        $data = Db::name("user")->alias("u")->join("group g","u.groupid=g.id")->field("u.name as name,u.phone as phone,u.avater as avater,u.id as id,u.money as money,u.registertime as registertime,g.name as groupname,u.points as points")->select();
 
         $this->assign("data",$data);
         return view("member");

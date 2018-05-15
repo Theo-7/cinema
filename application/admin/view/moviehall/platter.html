@@ -138,7 +138,7 @@
                                         <tr>
                                             <th>结束日期:</th>
                                             <td>
-                                                <input name="end" placeholder="结束日期" class="form-control layer-date" id="end">
+                                                <input name="end" placeholder="结束日期" readonly class="form-control layer-date" id="end">
                                             </td>
                                             <td id="end_td">结束时间会自动计算</td>
                                         </tr>
@@ -242,17 +242,18 @@
                 $.ajax({
                     type:"post",
                     url:"/admin/moviehall/checkTime",
-                    data:{hallid:{$hall.id},date:datas},
+                    data:{hallid:{$hall.id},date:datas,duration:date.duration},
                     success:function(res){
                         if(res.code===1){
                             $("#start_td").html(" ");
-                            end.min = datas; //开始日选好后，重置结束日的最小日期
-                            var time = new Date(datas);
-                            var endtime = time.getTime() + start.dura * 60 * 1000;
-                            var enddate = timestampToTime(endtime);
-                            end.start = enddate; //将结束日的初始值设定为开始日
+                            $("#end_td").html("结束时间会自动计算");
+                            $("#end").val(res.data['enddate']);
                         }else if(res.code===0){
                             $("#start_td").html("<span style='color:red'>在"+res.data['time']+"有电影在播放</span>");
+                            $("#start").val(" ");
+                            $("#end").val(" ");
+                        }else if(res.code===2){
+                            $("#end_td").html("<span style='color:red'>在"+res.data['time']+"有电影在播放</span>");
                             $("#start").val(" ");
                             $("#end").val(" ");
                         }
@@ -277,7 +278,6 @@
                     success:function(res){
                         if(res.code===1){
                             $("#end_td").html("结束时间会自动计算");
-                            start.max = datas; //结束日选好后，重置开始日的最大日期
                             var time = new Date(datas);
                             var endtime = time.getTime() - start.dura * 60 * 1000;
                             var enddate = timestampToTime(endtime);

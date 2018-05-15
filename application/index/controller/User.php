@@ -37,7 +37,7 @@ class User extends Common
     public function info()
     {
         $id = session("user_id");
-        $data = Db::name("user")->field("name,phone,avater,gender")->where("id", $id)->find();
+        $data = Db::name("user")->alias("u")->join("group g","u.groupid=g.id")->field("u.name as name,u.phone as phone,u.avater as avater,u.gender as gender,u.points as points,g.name as gname")->where("u.id", $id)->find();
 
         $this->assign("data", $data);
         return view("info");

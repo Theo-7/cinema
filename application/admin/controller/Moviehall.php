@@ -155,19 +155,33 @@ class Moviehall extends Common
     //ajax判断排片是否冲突
     public function checkTime(){
         $post = input("post.");
-        $result = Db::name("platter")->where("id",$post["hallid"])->where("'{$post['date']}'>=start")->where("'{$post['date']}'<=end")->find();
-        if($result){
+        $result1 = Db::name("platter")->where("hallid",$post["hallid"])->where("'{$post['date']}'>=start")->where("'{$post['date']}'<=end")->find();
+        //dump(Db::getLastSql());
+        //dump($post);
+        $endtime = strtotime($post["date"])+$post['duration']*60;
+        $enddate = date("Y-m-d H:i:s",$endtime);
+        $result2 = Db::name("platter")->where("hallid",$post["hallid"])->where("'{$enddate}'>=start")->where("'{$enddate}'<=end")->find();
+        if($result1){
             return [
                     "code"=>0,
-                    "msg"=>"时间有冲突",
-                    "data"=>["time"=>$result['end']]
+                    "msg"=>"开始时间有冲突",
+                    "data"=>["time"=>$result1['end']]
                     ];
         }else{
-            return [
-                "code"=>1,
-                "msg"=>"时间无冲突",
-                "data"=>[]
-                ];
+            if($result2){
+                return [
+                    "code"=>2,
+                    "msg"=>"介绍时间有冲突",
+                    "data"=>["time"=>$result2['end']]
+                    ];
+            }else{
+                return [
+                    "code"=>1,
+                    "msg"=>"时间无冲突",
+                    "data"=>["enddate"=>$enddate]
+                    ];
+            }
+            
         }
     }
    

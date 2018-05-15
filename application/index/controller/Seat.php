@@ -49,6 +49,10 @@ class Seat extends Common
         $post['seat'] = json_encode($post['seat'], JSON_UNESCAPED_UNICODE);
         $post['ordernum'] = date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
         $post["time"] = time();
+        $uid = session("user_id");
+        $user_group = Db::name("user")->alias("u")->where("u.id",$uid)->join("group g","u.groupid=g.id")->find();
+        $post["realmoney"] = $post["money"];
+        $post['money'] = $post['money']*($user_group["preferential"]/100);
         $result = Db::name("order")->insert($post);
         if ($result) {
             return ["code" => 1, "msg" => "成功", "data" => ["num"=>$post['ordernum']]];
