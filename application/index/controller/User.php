@@ -50,6 +50,7 @@ class User extends Common
         $post = array_filter($post);
         $result = Db::name("user")->where("id", $id)->update($post);
         if($result){
+            session("user_avater",$post['avater']);
             $this->success("修改成功","/index/user/info",2);
         }else{
             $this->error("修改失败");
