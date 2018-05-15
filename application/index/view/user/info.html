@@ -126,6 +126,7 @@
             timeout: 30000, //请求超时时间
             successFunc: function (res) {
                 $("#avater").prop("src",res.data);
+                $("[name='avater']").val(res.data);
             }, //上传成功回调函数
             errorFunc: function (res) {
                 console.log('失败回调', res);

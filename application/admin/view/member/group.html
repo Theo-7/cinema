@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 数据表格</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/admin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>用户组</h5>
+                        <div class="ibox-tools">
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                                新增用户组
+                            </button>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover dataTables-example ">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>用户组名</th>
+                                    <th>所需积分</th>
+                                    <th>优惠</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="data" id="vo" empty="暂时没有数据"}
+                                <tr class="gradeX">
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.name}
+                                    </td>
+                                    <td>
+                                        {$vo.points}（一元一积分）
+                                    </td>
+                                    <td>{$vo.preferential}%</td>
+                                    <td>
+                                        <a onclick="getHall(this)" class="btn btn-sm btn-success m-t-n-xs" data-toggle="modal" data-target="#myModal6" group-id={$vo.id}>
+                                            <strong>修改</strong>
+                                        </a>
+                                        <a onclick="delHall(this)" class="btn btn-sm btn-primary m-t-n-xs" group-id="{$vo.id}">
+                                            <strong>删除</strong>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {/volist}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">添加用户组</h4>
+                </div>
+                <form action='/admin/member/newGroup' method="post" 　 onsubmit="return check(this);">
+
+                    <div class="modal-body">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+                                <table class="table table-striped">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>用户组名:</td>
+                                            <td>
+                                                <input required name="name" type="text" />
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>所需积分:</td>
+                                            <td>
+                                                <input required value="0" name="points" type="number" min=0  step=0.01 />
+                                            </td>
+                                            <td>
+                                                    一元一积分
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>优惠</td>
+                                            <td>                                            
+                                                    <input required value=0 name="preferential" type="number" min=0 max=100  step=0.01 />%
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+
+            </div>
+            <small class="font-bold">
+            </small>
+        </div>
+        <small class="font-bold">
+        </small>
+    </div>
+    <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">修改用户组</h4>
+                </div>
+                <form action='/admin/member/editGroup' method="post" 　 onsubmit="return check(this);">
+
+                    <div class="modal-body">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+                                <table class="table table-striped">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>用户组名:</td>
+                                            <td>
+                                                <input name="name" type="text" />
+                                                <input name="id" type="hidden" />
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>所需积分:</td>
+                                            <td>
+                                                <input  name="points" type="number" min=0  step=0.01 />
+                                            </td>
+                                            <td>
+                                                一元一积分
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>优惠</td>
+                                            <td>                                            
+                                                    <input  name="preferential" type="number" min=0 max=100  step=0.01 />%
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+
+            </div>
+            <small class="font-bold">
+            </small>
+        </div>
+        <small class="font-bold">
+        </small>
+    </div>
+    <!-- 全局js -->
+    <script src="/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/admin/js/content.js?v=1.0.0"></script>
+
+
+    <!-- Page-Level Scripts -->
+    <script>
+         $(document).ready(function () {
+            $('.dataTables-example').dataTable();
+
+            // /* Init DataTables */
+            // var oTable = $('#editable').dataTable();
+
+            // /* Apply the jEditable handlers to the table */
+            // oTable.$('td').editable('../example_ajax.php', {
+            //     "callback": function (sValue, y) {
+            //         var aPos = oTable.fnGetPosition(this);
+            //         oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+            //     },
+            //     "submitdata": function (value, settings) {
+            //         return {
+            //             "row_id": this.parentNode.getAttribute('id'),
+            //             "column": oTable.fnGetPosition(this)[2]
+            //         };
+            //     },
+
+            //     "width": "90%",
+            //     "height": "100%"
+            // });
+
+
+        });
+    </script>
+    <script>
+        function check(obj) {
+            var name = $(obj).find("[name='name']").val();
+            var points = $(obj).find("[name='points']").val();
+            if (name == "" || name == null) {
+                $("[name='name']").parent("td").next().html('<span style="color:red">未填写电影厅名</span>');
+                return false;
+            } else if (points == "" || points == null) {
+                $("[name='points']").parent("td").next().html('<span style="color:red">未填写所需积分</span>');
+                return false;
+            } else {
+
+                return true;
+            }
+
+        }
+
+        function getHall(obj) {
+            var hallId = $(obj).attr("group-id");
+            $.ajax({
+                url: "/admin/member/getGroup",
+                type: "post",
+                data: {
+                    id: hallId
+                },
+                success: function (res) {
+                    if (res.code === 1) {
+                        $("#myModal6").find("[name='name']").val(res.data['name']);
+                        $("#myModal6").find("[name='points']").val(res.data['points']);
+                        $("#myModal6").find("[name='id']").val(res.data['id']);
+                        $("#myModal6").find("[name='preferential']").val(res.data['preferential']);
+                    }
+                }
+            })
+        }
+
+        function delHall(obj) {
+            if (confirm("确定删除？")) {
+                var id = $(obj).attr("group-id");
+                $.ajax({
+                    url: "/admin/member/delGroup",
+                    type: "post",
+                    data: {
+                        id: id
+                    },
+                    success: function (res) {
+                        if (res.code === 1) {
+                            window.location.reload();
+                        }
+                    }
+
+                });
+            }
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>

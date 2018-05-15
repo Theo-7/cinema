@@ -119,7 +119,8 @@
 
   <div class="container">
     <div class="pull-right" style="text-align: right;">
-      <p class="sum">合计：{$data.num*$data.price}元</p>
+      <p class="sum">合计：<del>{$data.num*$data.price}</del>元</p>
+      <p class="sum">会员价：{$data.num*$data.price*($preferential/100)}元</p>
       <ul class="countdown">
         为您锁票
         <!-- <li> <span class="days">00</span>
@@ -159,7 +160,7 @@
             </dd>
 
             <dd>
-              <input type="hidden" id="WIDtotal_amount" name="WIDtotal_amount" value="{$data.num*$data.price}" />
+              <input type="hidden" id="WIDtotal_amount" name="WIDtotal_amount" value="{$data.num*$data.price*($preferential/100)}" />
             </dd>
 
             <dd>
@@ -243,7 +244,7 @@
             type: "post",
             url: "/index/user/userPay",
             data: {
-              money: {$data.num * $data.price},
+              money: {$data.num * $data.price*($preference/100)},
               num: {$data.ordernum}
             },
             success: function (res) {

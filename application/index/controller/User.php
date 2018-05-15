@@ -48,8 +48,6 @@ class User extends Common
         $id = session("user_id");
         $post = input("post.");
         $post = array_filter($post);
-        // var_dump($post);
-        // exit;
         $result = Db::name("user")->where("id", $id)->update($post);
         if($result){
             $this->success("修改成功","/index/user/info",2);
@@ -126,18 +124,25 @@ class User extends Common
                 Db::startTrans();
                 try {
                     Db::name("recharge")->insert($updata);
-                    $oldMoney = Db::name("user")->where("id", $id)->value("money");
-                    $newMoney = round($oldMoney + $money, 2);
-                    Db::name("user")->where("id", $id)->update(["money" => $newMoney]);
+                    $userold = Db::name("user")->where("id", $id)->field("money,points")->find();
+                    $newMoney = round($userold['money'] + $money, 2);
+                    $points = $userold['points']+$money;
+                    Db::name("user")->where("id", $id)->update(["money" => $newMoney,"points"=>$points]);
                     Db::commit();
                     $code = 1;
                     //;
                 } catch (\Exception $e) {
                     Db::rollback();
-                    
                     $this->error("错误");
                 }
+
+                $id = session("user_id");
+                $points = Db::name("user")->where("id",$id)->value("points");
+                $newpoint = $points+$money;
+                Db::name("user")->where("id",$id)->update(["points"=>$newpoint]);
+                checkGroup();
                 if($code===1){
+                    
                     $this->success("充值成功","/index/user/finance",2);
                 }
                 

@@ -93,6 +93,8 @@ class Alipay extends Common
             $out_trade_no = htmlspecialchars($_GET['out_trade_no']);
             //支付宝交易号
             $trade_no = htmlspecialchars($_GET['trade_no']);
+            //
+            $money = htmlspecialchars($_GET['total_amount']);
             $takenum = mt_rand(10000,99999);
             $updata = [
                         "status"=>1,
@@ -102,6 +104,12 @@ class Alipay extends Common
                         "isdel"=>0
                     ];
             Db::name("order")->where("ordernum",$out_trade_no)->update($updata);
+
+            $id = session("user_id");
+            $points = Db::name("user")->where("id",$id)->value("points");
+            $newpoint = $points+$money;
+            Db::name("user")->where("id",$id)->update(["points"=>$newpoint]);
+            checkGroup();
             $this->success("支付成功","/index/user/ticket",2);
 
         } else {

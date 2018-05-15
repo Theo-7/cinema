@@ -24,3 +24,17 @@ function post($url,$data){
     curl_close($init);
     return $ret;
 }
+function checkGroup(){
+    $uid = session("user_id");
+    $points = think\Db::name("user")->where("id",$uid)->field("points,groupid")->find();
+    $group = think\Db::name("group")->where("points=(select max(points) from cinema_group where {$points['points']}>=points)")->find();
+    // dump($points);
+    // dump($group);
+    // dump(think\Db::getLastSql());
+    if($group['id']==$points['groupid']){
+        return false;
+    }else{
+        think\Db::name("user")->where("id",$uid)->update(["groupid"=>$group["id"]]);
+        return true;
+    }
+}

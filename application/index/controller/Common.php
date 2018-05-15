@@ -13,6 +13,8 @@ class Common extends Controller
             session("referer", $_SERVER["HTTP_REFERER"]);
             $this->jsback("/index/login/index","请先登录");
         }
+        // $check = checkGroup();
+        // dump($check);
     }
 
     public function jsback($url="", $msg="错误")
