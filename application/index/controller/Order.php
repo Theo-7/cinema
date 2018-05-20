@@ -49,4 +49,23 @@ class Order extends Common
         $this->assign("interval",$interval);
         return view();
     }
+
+    public function delOrder(){
+        $order = input("post.order");
+        $result = Db::name("order")->where("ordernum",$order)->where("status","0")->update(["isdel"=>1]);
+        if($result){
+            return ["code"=>1,"msg"=>"success","data"=>[]];
+        }else{
+            return ["code"=>0,"msg"=>"error","data"=>[]];
+        }
+    }
+    public function offOrder(){
+        $order = input("post.order");
+        $result = Db::name("order")->where("ordernum",$order)->update(["isshow"=>0]);
+        if($result){
+            return ["code"=>1,"msg"=>"success","data"=>[]];
+        }else{
+            return ["code"=>0,"msg"=>"error","data"=>[]];
+        }
+    }
 }
