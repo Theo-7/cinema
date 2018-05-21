@@ -38,7 +38,7 @@ class Statistic extends Common
             } else {
                 $val["pnum"] = 0;
             }
-            $all_p = Db::name("platter")->where("start>{$val['time']}")->select();
+            $all_p = Db::name("platter")->where("movieid", $val['mid'])->select();
             $all_p = count($all_p);
             $percent = $movie_p["pnum"] / $all_p;
             $val['pencent'] = round($percent, 4) * 100;
@@ -55,6 +55,8 @@ class Statistic extends Common
                 $people = 0;
             }
             //dump($people);
+            // dump($people);
+            // dump($all_p);
             $val['pp'] = round($people/$all_p);
             
 

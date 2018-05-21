@@ -67,7 +67,9 @@ class User extends Common
     public function recharge()
     {
         $num = date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT) . substr(time(), 8, 2);
+        $group = Db::name("group")->order("points")->select();
 
+        $this->assign("group",$group);
         $this->assign("num", $num);
         return view("recharge");
     }
