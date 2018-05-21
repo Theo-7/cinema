@@ -40,27 +40,30 @@ class Statistic extends Common
             }
             $all_p = Db::name("platter")->where("movieid", $val['mid'])->select();
             $all_p = count($all_p);
-            if(empty($movie_p["pnum"])){
+            if(empty($all_p)){
                  $percent = 0;
                 $val['pencent'] = 0;
+                $val['pp'] = 0;
             }else{
+                
                 $percent = $movie_p["pnum"] / $all_p;
                 $val['pencent'] = round($percent, 4) * 100;
+                $seat = Db::name("order")->alias("o")->where("movieid", $val['mid'])->where("isdel",0)->join("cinema_platter p", "p.id=o.pid")->field("seat")->select();
+                $sdata = [];
+                if (!empty($seat)) {
+                    foreach ($seat as $k => $v) {
+                        $sdata = array_merge($sdata, json_decode($v["seat"], true));
+                    }
+                    $people= count($sdata);
+                    $val['pp'] = round($people/$all_p);
+                }else{
+                        $val['pp'] = 0;
+                
+                }
             }
             
 
-            $seat = Db::name("order")->alias("o")->where("movieid", $val['mid'])->where("isdel",0)->join("cinema_platter p", "p.id=o.pid")->field("seat")->select();
-            $sdata = [];
-            if (!empty($seat)) {
-                foreach ($seat as $k => $v) {
-                    $sdata = array_merge($sdata, json_decode($v["seat"], true));
-                }
-                $people= count($sdata);
-                $val['pp'] = round($people/$all_p);
-            }else{
-                $people = 0;
-                $val['pp'] = 0；
-            }
+         
             //dump($people);
             // dump($people);
             // dump($all_p);
