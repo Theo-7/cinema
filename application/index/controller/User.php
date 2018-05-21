@@ -139,8 +139,6 @@ class User extends Common
 
                 $id = session("user_id");
                 $points = Db::name("user")->where("id",$id)->value("points");
-                $newpoint = $points+$money;
-                Db::name("user")->where("id",$id)->update(["points"=>$newpoint]);
                 checkGroup();
                 if($code===1){
                     
