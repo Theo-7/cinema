@@ -40,8 +40,14 @@ class Statistic extends Common
             }
             $all_p = Db::name("platter")->where("movieid", $val['mid'])->select();
             $all_p = count($all_p);
-            $percent = $movie_p["pnum"] / $all_p;
-            $val['pencent'] = round($percent, 4) * 100;
+            if(empty($movie_p["pnum"])){
+                 $percent = 0;
+                $val['pencent'] = 0;
+            }else{
+                $percent = $movie_p["pnum"] / $all_p;
+                $val['pencent'] = round($percent, 4) * 100;
+            }
+            
 
             $seat = Db::name("order")->alias("o")->where("movieid", $val['mid'])->where("isdel",0)->join("cinema_platter p", "p.id=o.pid")->field("seat")->select();
             $sdata = [];
