@@ -38,7 +38,7 @@ class Statistic extends Common
             } else {
                 $val["pnum"] = 0;
             }
-            $all_p = Db::name("platter")->where("movieid", $val['mid'])->select();
+            $all_p = Db::name("platter")->where("start>{$val['time']}")->select();
             $all_p = count($all_p);
             if(empty($all_p)){
                  $percent = 0;
