@@ -56,14 +56,15 @@ class Statistic extends Common
                     $sdata = array_merge($sdata, json_decode($v["seat"], true));
                 }
                 $people= count($sdata);
-               
+                $val['pp'] = round($people/$all_p);
             }else{
                 $people = 0;
+                $val['pp'] = 0；
             }
             //dump($people);
             // dump($people);
             // dump($all_p);
-            $val['pp'] = round($people/$all_p);
+            
             
 
         }
