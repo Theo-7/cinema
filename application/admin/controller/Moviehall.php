@@ -81,6 +81,8 @@ class Moviehall extends Common
     //添加排片
     public function newPlatter(){
         $post = input("post.");
+        // dump($post);
+        // exit;
         $result1 = Db::name("platter")->where("id",$post["hallid"])->where("'{$post['start']}'>=start")->where("'{$post['start']}'<=end")->find();
         $result2 = Db::name("platter")->where("id",$post["hallid"])->where("'{$post['end']}'>=start")->where("'{$post['end']}'<=end")->find();
 

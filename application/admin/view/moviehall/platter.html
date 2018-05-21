@@ -213,14 +213,12 @@
         var element = $("[name='movieid']").find("option:checked");
         var date = {
             duration: element.attr("duration"),
-            time: element.attr("time") + " 00:00:00",
         };
         $(function () {
             $("#sel").on("change", function () {
                 var element = $("[name='movieid']").find("option:checked");
                 date.duration = element.attr("duration");
                 date.time = element.attr("time") + " 00:00:00";
-                start.start = date.time;
                 start.dura = date.duration;
                 $("#start").val(" ");
                 $("#end").val(" ");

@@ -21,7 +21,7 @@ class Buy extends Controller
         //电影排片信息
         $pdata = array();
         $datetime = date('Y-m-d H:i:s', time());
-        $platterData = Db::name("platter")->alias("p")->join("cinema_moviehall h", "p.hallid=h.id", "left")->where("p.start>'{$datetime}'")->where("datediff('{$datetime}',p.start)<7")->column("p.id as pid,p.start as start,p.end as end,h.name as name,h.id as hid,p.price as price");
+        $platterData = Db::name("platter")->alias("p")->where("movieid",$id)->join("cinema_moviehall h", "p.hallid=h.id", "left")->where("p.start>'{$datetime}'")->where("datediff('{$datetime}',p.start)<7")->column("p.id as pid,p.start as start,p.end as end,h.name as name,h.id as hid,p.price as price");
         //日期作为键名
         foreach ($platterData as $key => $val) {
             $k = date("Y-m-d", strtotime($val['start']));
